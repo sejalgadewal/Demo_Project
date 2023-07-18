@@ -1,8 +1,11 @@
 <section class="section">
   <div class="container">
     <div class="columns">
-    <% if user_signed_in? %>
-      <%= render 'profile' %>
+    <% if user_signed_in? && current_user.role == 'Instructor'%>
+      <%= render 'instructorprofile' %>
+    <% elsif user_signed_in? &&  current_user.role == 'Student'%>
+      <%= render 'studentprofile' %>
+    
     <%end%>
     </div>
   </div>
