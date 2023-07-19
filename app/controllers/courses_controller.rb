@@ -1,11 +1,11 @@
 class CoursesController < ApplicationController
-
+  before_action :set_course, only: [:edit, :update, :show, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
   def index
   # @courses= Course.all.order("created_at DESC")
    #@course=Course.new
-   #instructor_id = current_user.id
-   #@instructor = Instructor.find(instructor_id)
+   instructor_id = current_user.id
+   @instructor = Instructor.find(instructor_id)
     
   end
 
@@ -42,9 +42,37 @@ class CoursesController < ApplicationController
   end
 
   def edit
+   # @course=Course.find(params[:id])
   end
 
+  def update
+    instructor_id = current_user.id
+  @instructor = Instructor.find(instructor_id)
+  
+    respond_to do |format|
+      if @course.update(course_params)
+        format.html { redirect_to instructor_path(@instructor), notice: "Course was successfully updated." }
+        format.json { render :show, status: :ok, location: @course }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @course.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
+
+
   def destroy
+    instructor_id = current_user.id
+    @instructor = Instructor.find(instructor_id)
+    
+    @course.destroy
+
+    respond_to do |format|
+      format.html { redirect_to instructor_path(@instructor), notice: "Course was successfully destroyed." }
+      format.json { head :no_content }
+    end
   end
 
   def show
@@ -55,5 +83,8 @@ class CoursesController < ApplicationController
 
     def course_params
       params.require(:course).permit(:title, :description, :fileupload)
+    end
+    def set_course
+      @course=Course.find(params[:id])
     end
 end
