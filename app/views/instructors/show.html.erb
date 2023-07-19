@@ -1,21 +1,8 @@
 <p style="color: green"><%= notice %></p>
-
-<%
-=begin%>
- <h1>Cretaed By :- <%= @instructor.name %> </h1>
-<br>
-<h2>Courses:</h2><br>
-<% @courses.each do |course| %>
-  <p>Course title :- <%= course.title %></p> 
-  <p>Course Description :- <%= course.description %></p>
-  <br>
-  <!-- Additional course details -->
-<% end %> 
-<%
-=end%>
-
-
 <div class="column is-one-quarter">
+ <strong><h1 style= "color: red">Cretaed By :- <%= @instructor.name %> </h1></strong>
+  <% @courses.each do |course| %>
+
     <nav class="panel">
         <p class="panel-heading"></p>
         <div class="panel-block">
@@ -28,36 +15,32 @@
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <h1>Cretaed By :- <%= @instructor.name %> </h1>
+                           
                             <br>
                             <h2>Courses:</h2><br>
-              
-                            <% @courses.each do |course| %>
-
-                            <p>Course title :- <%= course.title %></p> 
-                           <p>Course Description :- <%= course.description %></p>
+                              <p>Course title :- <%= course.title %></p> 
+                              <p>Course Description :- <%= course.description %></p>
                           
-                          <% if course.fileupload.attached? %>
-  <p>Download File: <%= link_to course.fileupload.filename, rails_blob_path(course.fileupload) %></p>
-<% else %>
-  <p>No file attached.</p>
-<% end %>
-
-                          <%
-=begin%>
- <p> File: <%= link_to 'Download', url_for(@course) %> </p> 
-<%
-=end%>
-  
-                          <br>
-                          <% end %>
-
+                              <% if course.fileupload.attached? %>
+                                  <p>Download File: <%= link_to course.fileupload.filename, rails_blob_path(course.fileupload) %></p>
+                              <% else %>
+                                  <p>No file attached.</p>
+                              <% end %>
+                              <br>
+                            
                         </p>
+
+                        <div>
+                            <%= link_to "Edit this Course", edit_course_path(course) %> |
+                            <%= link_to "Back to Course", courses_path %>
+
+                            <%= button_to "Delete Course", course, method: :delete %>
+                        </div>
+
                     </div>
-
                 </div>
-            </article>
-
-        </div> 
-
+             </article>
+          </div> 
     </nav>
+<%end%>
+</div>
