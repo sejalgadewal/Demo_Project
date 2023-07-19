@@ -5,10 +5,14 @@ Rails.application.routes.draw do
   get 'courses/destroy'
   get 'courses/show'
 
-  resources :courses do
+  resources :instructors  
+    resources :courses 
+  
+  resources :students
     
-      get 'show', on: :member, constraints: lambda { |req| !req.session[:user_id].present? }
-  end
+  #     get 'show', on: :member, constraints: lambda { |req| !req.session[:user_id].present? }
+  # end
+
 
   devise_for :users, :controllers => {registrations: 'registrations'}
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="columns">
     <% if user_signed_in? && current_user.role == 'Instructor'%>
-      <%= render 'instructorprofile' %>
+      <%= render 'instructorprofile', instructor: @instructor%>
     <% elsif user_signed_in? &&  current_user.role == 'Student'%>
       <%= render 'studentprofile' %>
     
