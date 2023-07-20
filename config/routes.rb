@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
+  get 'homes/index'
   get 'courses/index'
   get 'courses/new'
   get 'courses/edit'
   get 'courses/destroy'
   get 'courses/show'
-
+  get 'courses/mycourse'
+  root "homes#index"
   resources :instructors  
     resources :courses 
   
   resources :students
-    
+   resources :homes 
   #     get 'show', on: :member, constraints: lambda { |req| !req.session[:user_id].present? }
   # end
 
@@ -18,6 +20,6 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-   root "courses#index"
+   
 
 end

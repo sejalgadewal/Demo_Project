@@ -1,0 +1,26 @@
+<%
+=begin%>
+ <section class="section">
+  <div class="container">
+    <div class="columns">
+    <% if user_signed_in? && current_user.role == 'Instructor'%>
+      <%= render 'instructorprofile', instructor: @instructor%>
+    <% elsif user_signed_in? &&  current_user.role == 'Student'%>
+      <%= render 'studentprofile'%>
+    
+    <%end%>
+    </div>
+  </div>
+</section> 
+<%
+=end%>
+
+ <%= render "index" %> 
+
+
+ <% if current_user %>
+          <%= button_to "Sign Out", destroy_user_session_path, method: :delete %>
+    
+ <% end %> 
+
+         

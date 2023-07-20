@@ -16,7 +16,9 @@
 <div class="field">
   <div class="control">
   <%= f.label :Upload_File%>
-    <%= f.file_field :fileupload %>
+ 
+    <%= f.file_field :documents, multiple: true, accept: 'application/pdf' %>
+   
   </div>
 </div>
 

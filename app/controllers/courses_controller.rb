@@ -1,12 +1,17 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:edit, :update, :show, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  #before_action :authenticate_user!, except: [:index, :show]
   def index
   # @courses= Course.all.order("created_at DESC")
    #@course=Course.new
-   instructor_id = current_user.id
-   @instructor = Instructor.find(instructor_id)
-    
+   @courses=Course.all
+   if current_user.role == "Instructor"
+      render partial: 'instructorprofile'
+   else
+      render partial: 'studentprofile'
+   #instructor_id = current_user.id
+   #@instructor = Instructor.find(instructor_id)
+   end
   end
 
   def new
@@ -32,7 +37,7 @@ class CoursesController < ApplicationController
     # @course.instructor_id = current_user.id
     respond_to do |format|
       if @course.save
-        format.html { redirect_to instructor_path(@instructor), notice: "Course was successfully created." }
+        format.html { redirect_to courses_mycourse_path, notice: "Course was successfully created." }
         format.json { render :show, status: :created, location: @course }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -51,7 +56,7 @@ class CoursesController < ApplicationController
   
     respond_to do |format|
       if @course.update(course_params)
-        format.html { redirect_to instructor_path(@instructor), notice: "Course was successfully updated." }
+        format.html { redirect_to courses_mycourse_path, notice: "Course was successfully updated." }
         format.json { render :show, status: :ok, location: @course }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -70,19 +75,25 @@ class CoursesController < ApplicationController
     @course.destroy
 
     respond_to do |format|
-      format.html { redirect_to instructor_path(@instructor), notice: "Course was successfully destroyed." }
+      #format.html { redirect_to instructor_path(@instructor), notice: "Course was successfully destroyed." }
+      format.html { redirect_to courses_mycourse_path, notice: "Course was successfully destroyed." }
+     
       format.json { head :no_content }
     end
   end
 
   def show
-
+    
   end
 
+  def mycourse
+    @courses = current_user.courses
+ 
+  end
   private
 
     def course_params
-      params.require(:course).permit(:title, :description, :fileupload)
+      params.require(:course).permit(:title, :description, documents: [])
     end
     def set_course
       @course=Course.find(params[:id])
