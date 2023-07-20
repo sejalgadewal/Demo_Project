@@ -1,4 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    div.content{
+        height: 1000px;
+        width: 250%;
+        background-color: powderblue;
+    }
+</style>
+</head>
 
+<body>
  <div class="column is-one-quarter">
     <nav class="panel">
         <p class="panel-heading">Courses Available</p>
@@ -9,7 +21,7 @@
                        <%= gravatar_image_tag(current_user.email, size:64,alt: current_user.name)%>
                     </figure>
                 </div>
-                <div class="media-content">
+                <div class="media-content" >
                     <div class="content">
                         <p>
                         
@@ -17,13 +29,21 @@
                             <%= user.find_each do |u| %>
                                 <% if u.courses.exists? %>
                                     <h3>Created By : -<%= u.name %> </h3>
-                               
-                                     <% u.courses.pluck(:title).each do |i| %>
+                                      <% u.courses.pluck(:title,:description,:documents).each do |i,i1,i2| %>
+
+                                       <h4>Title Of Course</h4>                              
                                         <%= i %> 
-                                        <%= link_to( "Enroll", '#' )%>
-                                    
+                                        <br>
+
+                                        <h4>Description Of Course</h4>                        
+                                        <%= i1%>
+                                        
+                                        <%= button_to( "Enroll", '#') %>
+                                        <br>
                                         <br>
                                     <%end%>
+                                    
+                                   
                                 <%end%>
                             <%end%>
 
@@ -35,6 +55,11 @@
         </div> 
     </nav> 
 </div> 
+</body>
+<html>
+
+
+
 
 <%
 =begin%>
