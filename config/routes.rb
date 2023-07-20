@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'lectures/index'
+  get 'lectures/new'
+  get 'lectures/create'
+  get 'lectures/edit'
+  get 'lectures/update'
+  get 'lectures/show'
+  get 'lectures/destroy'
   get 'enrollments/index'
   get 'enrollments/new'
   get 'enrollments/create'

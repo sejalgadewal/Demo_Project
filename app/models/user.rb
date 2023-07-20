@@ -13,8 +13,8 @@ class User < ApplicationRecord
   #validates :type, inclusion: { in: roles }
   enum role: {Instructor: 0, Student: 1}
  # validates :role, inclusion: {in: roles.keys }
-
-  has_many :courses
+  has_many :enrollments
+  has_many :courses, through: :enrollments
   
   
 end
