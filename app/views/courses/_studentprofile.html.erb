@@ -1,0 +1,63 @@
+
+ <div class="column is-one-quarter">
+    <nav class="panel">
+        <p class="panel-heading">Courses Available</p>
+        <div class="panel-block">
+            <article class="media">
+                <div class="media-left">
+                    <figure class="image is-64x64">
+                       <%= gravatar_image_tag(current_user.email, size:64,alt: current_user.name)%>
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                        
+                            <h2>List of Courses</h2>
+                            <%= user.find_each do |u| %>
+                                <% if u.courses.exists? %>
+                                    <h3>Created By : -<%= u.name %> </h3>
+                               
+                                     <% u.courses.pluck(:title).each do |i| %>
+                                        <%= i %> 
+                                        <%= link_to( "Enroll", '#' )%>
+                                    
+                                        <br>
+                                    <%end%>
+                                <%end%>
+                            <%end%>
+
+                        </p>
+                    </div>
+
+                </div>
+            </article>
+        </div> 
+    </nav> 
+</div> 
+
+<%
+=begin%>
+ 
+<div class="col-lg-12">
+  <div class="card rounded 0 mt-5 mb-5">
+    <div class="card-body">
+      <h2 class="text-center">Available Courses</h2>
+      <div class="row mt-5">
+          <div class="col-lg-6">
+                            <h2>List of Courses</h2>
+                            <%= user.find_each do |u| %>
+                            <% if u.courses.exists? %>
+                               <h3>Created By : -<%= u.name %> </h3>
+                               
+                               <%= u.courses.pluck(:title) %><br><br>
+                            <%end%>
+                            <%end%>
+        </div>
+      </div>
+     </div>
+  </div>
+</div>
+ 
+<%
+=end%>

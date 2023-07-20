@@ -1,46 +1,4 @@
-<%= render 'instructor_profile'%>
+<%#= render 'instructor_profile'%>
 
-<%
-=begin%>
- <section class="section">
-  <div class="container">
-    <div class="columns">
-    <% if user_signed_in? && current_user.role == 'Instructor'%>
-      <%= render 'instructorprofile', instructor: @instructor%>
-    <% elsif user_signed_in? &&  current_user.role == 'Student'%>
-      <%= render 'studentprofile'%>
-    
-    <%end%>
-    </div>
-  </div>
-</section> 
-<%
-=end%>
+<%= render 'studentprofile', user: @user %>
 
-
-<%# Completed%>
-
-
-
-<!-- <h1>All Posts</h1>
-
-<% @posts.each do |post| %>
-  <div>
-    <h2><%#= post.description %></h2>
-     <% if post.image.present? %>
-      <%#= image_tag post.image, alt: 'Post Image' %>
-    <%# end %> 
-    <p>Tagged People: <%= post.tag_people %></p>
-    <p>Created At: <%= post.created_at %></p>
-    <p>Updated At: <%= post.updated_at %></p>
-    <p><%= link_to 'Show', post_path(post) %></p>
-    <p><%= link_to 'Edit', edit_post_path(post) %></p>
-    <p><%= link_to 'Delete', post_path(post), method: :delete, data: { confirm: 'Are you sure you want to delete this post?' } %></p>
-    <hr>
-  </div>
-<% end %>
-
-<p><%= link_to 'New Post', new_post_path %></p>
-
-<p><%= link_to 'Back to My Account', root_path %></p>
- -->

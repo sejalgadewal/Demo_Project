@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
         	if resource.role == 'Instructor'
                 courses_path
             else
-            	courses_path
+                courses_path
             end
         end
     end

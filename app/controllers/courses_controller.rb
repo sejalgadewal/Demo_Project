@@ -5,10 +5,13 @@ class CoursesController < ApplicationController
   # @courses= Course.all.order("created_at DESC")
    #@course=Course.new
    @courses=Course.all
+   
    if current_user.role == "Instructor"
       render partial: 'instructorprofile'
-   else
-      render partial: 'studentprofile'
+   elsif current_user.role == "Student"
+    @user=User.where(role: "Instructor")
+    
+    #render partial: 'studentprofile', user: @user
    #instructor_id = current_user.id
    #@instructor = Instructor.find(instructor_id)
    end
