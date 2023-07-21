@@ -15,6 +15,7 @@
 </head>
 
 <body>
+
  <div class="column is-one-quarter">
     <nav class="panel">
         <p class="panel-heading">Courses Available</p>
@@ -31,9 +32,12 @@
                         
                             <h2>List of Courses</h2>
                             <%= user.find_each do |u| %>
+                                  
+
                                 <% if u.courses.exists? %>
+                                   <%# u.courses.find_each do |course| %>
                                     <h3>Created By : -   <%= u.name %> </h3>
-                                      <% u.courses.pluck(:title,:description,:documents).each do |i,i1,i2| %>
+                                      <% u.courses.pluck(:title,:description,:documents, :id).each do |i,i1,i2,i3| %>
 
                                        <h4>Title Of Course</h4>                              
                                         <%= i %> 
@@ -41,14 +45,37 @@
 
                                         <h4>Description Of Course</h4>                        
                                         <%= i1%>
-                                        
-                                        <%= button_to( "Enroll", '#') %>
+
+
+                                        <%#bul = true%>
+                                        <%# u.courses.each do |c|%>
+                                          <%#if bul%>
+                                        <%# if current_user.%>
+                                          <%= link_to( "Enroll", course_enroll_path(i3), method: :get) %>
+                                          
+                                        <%
+=begin%>
+ <% if Enrollment.pluck(:course_id) == i3 && Enrollment.pluck(:user_id) == u.id  %>
+                                          <% button_to "Veiw Course" ,'#' %>
+                                        <% else %>
+                                          <%= link_to( "Enroll", course_enroll_path(i3), method: :get) %>
+                                        <% end %>
+                                           
+<%
+=end%>
+                                          
+                                          <%#end%>
+                                           <%#bul =  false%>
+                                         
+                                        <%#end%>
+                                    
                                         <br>
                                         <br>
-                                    <%end%>
+                                        <%end%>
                                     
                                    
-                                <%end%>
+                                    <%#end%>
+                                 <%end%>
                             <%end%>
 
                         </p>
