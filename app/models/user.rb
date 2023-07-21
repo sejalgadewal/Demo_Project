@@ -14,7 +14,8 @@ class User < ApplicationRecord
   enum role: {Instructor: 0, Student: 1}
  # validates :role, inclusion: {in: roles.keys }
   has_many :enrollments
-  has_many :courses, through: :enrollments
+  has_many :courses, dependent: :destroy
   
   
 end
+

@@ -10,7 +10,9 @@ class CoursesController < ApplicationController
       render partial: 'instructorprofile'
    elsif current_user.role == "Student"
     @user=User.where(role: "Instructor")
-    
+    # @user.courses.each do |c|
+    #     @c=c
+    # end
     #render partial: 'studentprofile', user: @user
    #instructor_id = current_user.id
    #@instructor = Instructor.find(instructor_id)
@@ -86,7 +88,8 @@ class CoursesController < ApplicationController
   end
 
   def show
-    
+    @user=User.where(role: "Instructor")
+  
   end
 
   def mycourse
