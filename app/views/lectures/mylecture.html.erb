@@ -1,0 +1,11 @@
+ <h1>Quiz for <%= @course.title %></h1>
+
+
+                              <% @lectures.each do |lecture|%>
+                                <% if lecture.video.attached? %>
+                                  <p>Download Video: <%= link_to lecture.video.filename, rails_blob_path(lecture.video,disposition: 'attachment') %></p>
+ <%= link_to 'create quizz ', new_course_lecture_quiz_path(@course, lecture)%>  <br><br>
+                               <%end%>
+                              <%end%>
+    
+<%= link_to 'Back to Course', courses_mycourse_path %>  <br><br>

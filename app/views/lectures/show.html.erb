@@ -1,2 +1,25 @@
-<h1>Lectures#show</h1>
-<p>Find me in app/views/lectures/show.html.erb</p>
+
+<%= notice %>
+
+
+<!-- 
+<%# @lecture.each do |lecture|%>
+
+<%# if lecture.video.attached? %>
+            <p>Download File: <%#= link_to lecture.video.filename, rails_blob_path(lecture.video,disposition: 'attachment') %></p>
+       
+<%# end %>
+
+<%#end%>
+ -->
+
+<% if @quiz.present? %>
+  <h2> Quiz: <%= @quiz.title %></h2>
+  <% @quiz.questions.each do |question| %>
+    <p><strong>Question:</strong> <%= question.content %></p>
+  <% end %>
+<% else %>
+  <p>No quiz available for this lecture.</p>
+<% end %>
+
+<%= link_to 'Back to Lectures', course_lectures_path(@course) %>
