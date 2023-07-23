@@ -1,0 +1,23 @@
+<!-- app/views/quizzes/new.html.erb -->
+<h1>Create New Quiz</h1>
+
+<%= form_with(model: [@course, @lecture, @quiz], local: true) do |form| %>
+  <!-- Quiz fields -->
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+
+  <!-- Question fields -->
+  <%= form.fields_for :questions do |question_form| %>
+
+      <%= render 'question_fields', f: question_form %>
+
+  <% end %>
+
+<div class="links">
+    <%= link_to_add_association 'Add Question', form, :questions, class: 'btn btn-primary', partial: 'question_fields' %>
+  </div>
+
+  <%= form.submit 'Create Quiz' %>
+<% end %>
+
+<%= link_to 'Back to Lecture', course_lecture_path(@course, @lecture) %>
