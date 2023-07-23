@@ -2,7 +2,7 @@ class EnrollmentsController < ApplicationController
   before_action :authenticate_user!, only: [:create]
 
   def index
-
+    @enrollments =current_user.enrollments
   end
 
   def new
@@ -11,41 +11,19 @@ class EnrollmentsController < ApplicationController
   end
 
   def create
-     @course = Course.find(params[:course_id])
-     #id=current_user.enrollments.pluck(:course_id)
-     
-     
-     ##if @course.enrollments.include?(current_user)
-
-     #if Enrollment.pluck(:course_id).include?(@course.id) && Enrollment.pluck(:user_id).include?(current_user.id)
-      #if Enrollment.select(:course_id, :user_id).include?(@course.id && current_user.id )
-     
-     #if Enrollment.select(:course_id,:user_id).include?(current_user.id && @course) 
-     #a = Enrollment.all.pluck(:id)
-      #if a.include? current_user.id && @course
-      ## redirect_to @course, alert: 'You are already enrolled in this course.'
-
-      ##else
-        @enrollment = current_user.enrollments.build(course: @course)
-        if @enrollment.save
-          redirect_to @course, notice: 'Successfully enrolled in the course.'
-        else
-          redirect_to courses_path, alert: 'You are already enrolled in this course .'
-        end
-      ##end
-
-  end
-
-  def edit
-  end
-
-  def update
+    @course = Course.find(params[:course_id])
+    #if Enrollment.pluck(:course_id).include?(@course.id) && Enrollment.pluck(:user_id).include?(current_user.id)
+    @enrollment = current_user.enrollments.build(course: @course, enrollment_date: Date.today)
+    if @enrollment.save
+    redirect_to @course, notice: 'Successfully enrolled in the course.'
+        
+    else
+      redirect_to course_path(@course), alert: 'You are already enrolled in this course .'
+    end
   end
 
   def show
-  end
-
-  def destroy
+    @enrollment=Enrollment.find(params[:id])  
   end
 
   private
