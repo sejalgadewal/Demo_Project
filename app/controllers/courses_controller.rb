@@ -1,74 +1,48 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:edit, :update, :show, :destroy]
-  #before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show]
   def index
-  # @courses= Course.all.order("created_at DESC")
-   #@course=Course.new
-   @courses=Course.all
+    @courses=Course.all
    
-   if current_user.role == "Instructor"
+    if current_user.role == "Instructor"
       render partial: 'instructorprofile'
-   elsif current_user.role == "Student"
-    @user=User.where(role: "Instructor")
-    # @user.courses.each do |c|
-    #     @c=c
-    # end
-    #render partial: 'studentprofile', user: @user
-   #instructor_id = current_user.id
-   #@instructor = Instructor.find(instructor_id)
-   end
+    elsif current_user.role == "Student"
+      @user=User.where(role: "Instructor")
+    end
+
   end
 
   def new
     @course=Course.new
-    #instructor_id = current_user.id
-    #@instructor = Instructor.find(instructor_id)
-    
-    #@course = @instructor.courses.new()
-   # @course= current_user.courses.build
   end
 
   def create
-    #byebug
-  #  @course = current_user.courses.create(course_params)
-  instructor_id = current_user.id
-  @instructor = Instructor.find(instructor_id)
-  #@course = @instructor.courses.new(course_params)
+    instructor_id = current_user.id
+    @instructor = Instructor.find(instructor_id)
   
-  @course = current_user.courses.build(course_params)
+    @course = current_user.courses.build(course_params)
   
-  
-    #@course=Course.new(course_params)
-    # @course.instructor_id = current_user.id
-    respond_to do |format|
-      if @course.save
-        format.html { redirect_to courses_mycourse_path, notice: "Course was successfully created." }
-        format.json { render :show, status: :created, location: @course }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
-      end 
-    end
+    if @course.save
+      redirect_to courses_mycourse_path, notice: "Course was successfully created." 
+    else
+      render :new, status: :unprocessable_entity 
+    end 
+    
   end
 
   def edit
-   # @course=Course.find(params[:id])
   end
 
   def update
     instructor_id = current_user.id
-  @instructor = Instructor.find(instructor_id)
+    @instructor = Instructor.find(instructor_id)
   
-    respond_to do |format|
-      if @course.update(course_params)
-        format.html { redirect_to courses_mycourse_path, notice: "Course was successfully updated." }
-        format.json { render :show, status: :ok, location: @course }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
-      end
+    if @course.update(course_params)
+      redirect_to courses_mycourse_path, notice: "Course was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity 
     end
-  end
+   end
 
 
 
@@ -76,24 +50,21 @@ class CoursesController < ApplicationController
   def destroy
     instructor_id = current_user.id
     @instructor = Instructor.find(instructor_id)
-    
     @course.destroy
-
-    respond_to do |format|
-      #format.html { redirect_to instructor_path(@instructor), notice: "Course was successfully destroyed." }
-      format.html { redirect_to courses_mycourse_path, notice: "Course was successfully destroyed." }
-     
-      format.json { head :no_content }
-    end
+    redirect_to courses_mycourse_path, notice: "Course was successfully destroyed."    
   end
 
   def show
+    @course=Course.find(params[:id])
     @user=User.where(role: "Instructor")
+    @lectures=@course.lectures
   
   end
 
   def mycourse
     @courses = current_user.courses
+   @lectures=current_user.lectures
+   # @lectures=@courses.lectures
  
   end
   private

@@ -16,12 +16,14 @@
 
 <body>
 
+
  <div class="column is-one-quarter">
     <nav class="panel">
         <p class="panel-heading">Courses Available</p>
         <div class="panel-block">
             <article class="media">
                 <div class="media-left">
+        
                     <figure class="image is-64x64">
                        <%= gravatar_image_tag(current_user.email, size:64,alt: current_user.name)%>
                     </figure>
@@ -46,36 +48,18 @@
                                         <h4>Description Of Course</h4>                        
                                         <%= i1%>
 
-
-                                        <%#bul = true%>
-                                        <%# u.courses.each do |c|%>
-                                          <%#if bul%>
-                                        <%# if current_user.%>
-                                          <%= link_to( "Enroll", course_enroll_path(i3), method: :get) %>
-                                          
-                                        <%
-=begin%>
- <% if Enrollment.pluck(:course_id) == i3 && Enrollment.pluck(:user_id) == u.id  %>
-                                          <% button_to "Veiw Course" ,'#' %>
+                                        <% if current_user && current_user.role=='Student?' && current_user.enrollments.where(course_id:i3) %>
+                                          <%= link_to 'View Course', '#' %>
                                         <% else %>
-                                          <%= link_to( "Enroll", course_enroll_path(i3), method: :get) %>
-                                        <% end %>
-                                           
-<%
-=end%>
-                                          
-                                          <%#end%>
-                                           <%#bul =  false%>
-                                         
-                                        <%#end%>
-                                    
+                                            <%= link_to 'Enroll', course_enroll_path(i3) %>
+                                         <% end %>
+
+
                                         <br>
                                         <br>
                                         <%end%>
                                     
-                                   
-                                    <%#end%>
-                                 <%end%>
+                                    <%end%>
                             <%end%>
 
                         </p>
@@ -91,30 +75,3 @@
 <html>
 
 
-
-
-<%
-=begin%>
- 
-<div class="col-lg-12">
-  <div class="card rounded 0 mt-5 mb-5">
-    <div class="card-body">
-      <h2 class="text-center">Available Courses</h2>
-      <div class="row mt-5">
-          <div class="col-lg-6">
-                            <h2>List of Courses</h2>
-                            <%= user.find_each do |u| %>
-                            <% if u.courses.exists? %>
-                               <h3>Created By : -<%= u.name %> </h3>
-                               
-                               <%= u.courses.pluck(:title) %><br><br>
-                            <%end%>
-                            <%end%>
-        </div>
-      </div>
-     </div>
-  </div>
-</div>
- 
-<%
-=end%>

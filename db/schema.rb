@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_21_062123) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_23_094126) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -63,7 +63,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_21_062123) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "course_id"
+    t.integer "user_id"
     t.index ["course_id"], name: "index_lectures_on_course_id"
+    t.index ["user_id"], name: "index_lectures_on_user_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "quiz_id"
+    t.index ["quiz_id"], name: "index_questions_on_quiz_id"
+  end
+
+  create_table "quizzes", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "lecture_id"
+    t.index ["lecture_id"], name: "index_quizzes_on_lecture_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -78,9 +96,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_21_062123) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
-    t.string "username"
     t.integer "role"
+    t.string "username"
+    t.string "name"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -92,4 +110,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_21_062123) do
   add_foreign_key "enrollments", "courses"
   add_foreign_key "enrollments", "users"
   add_foreign_key "lectures", "courses"
+  add_foreign_key "lectures", "users"
+  add_foreign_key "questions", "quizzes"
+  add_foreign_key "quizzes", "lectures"
 end

@@ -1,7 +1,7 @@
 <p style="color: green"><%= notice %></p>
 <div class="column is-one-quarter">
- <strong><h1 style= "color: red">Cretaed By :- <%= @current_user.name %> </h1></strong>
-  <% @courses.each do |course| %>
+<strong><h1 style= "color: red">Cretaed By :- <%= @current_user.name %> </h1></strong>
+<% @courses.each do |course| %>
 
     <nav class="panel">
         <p class="panel-heading"></p>
@@ -18,32 +18,73 @@
                            
                             <br>
                             <h2>Courses:</h2><br>
-                              <p>Course title :- <%= course.title %></p> 
-                              <p>Course Description :- <%= course.description %></p>
+                                <p>Course title :- <%= course.title %></p> 
+                                <p>Course Description :- <%= course.description %></p>
 
                              
-                                 <% if course.documents.attached? %>
+                                <% if course.documents.attached? %>
                                 <% course.documents.each do |document| %>
                                   <p>Download File: <%= link_to document.filename, rails_blob_path(document) %></p>
                                 <%end%>
-                              <% else %>
-                                  <p>No file attached.</p>
-                              <% end %>
-                              <br> 
-                 
+                                <% end %>
+                                <br> 
+                                <br> 
                         </p>
 
-                        <div>
-                            <%= link_to "Edit this Course", edit_course_path(course) %> |
-                            <%= link_to "Back to Course", courses_path %>
 
-                            <%= button_to "Delete Course", course, method: :delete %>
-                        </div>
+                <div class="panel-block">
+                <article class="media">
+                <div class="media-left">
+                    <figure class="image is-64x64">
+                       <%= gravatar_image_tag(current_user.email, size:64,alt: current_user.name)%>
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>Add Lecture</strong><br/>
+                            <small><%= link_to 'Add Lecture', new_course_lecture_path(course) %></small>
+                            
+                        </p>
+                    </div>
 
+                </div>
+                </article>
+
+                </div>
+                <br>
+
+
+                <div class="panel-block">
+                <article class="media">
+                <div class="media-left">
+                    <figure class="image is-64x64">
+                       <%= gravatar_image_tag(current_user.email, size:64,alt: current_user.name)%>
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>Show Lectures</strong><br/>
+                            <small><%= link_to 'Show Lecture', course_mylecture_path(course) %></small>
+                            
+                        </p>
                     </div>
                 </div>
+                </article>
+                </div>
+                <br>
+
+                <div>
+                    <%= link_to "Edit this Course", edit_course_path(course) %> |
+                    <%= link_to "Back to Course", courses_path %>
+                    <%= button_to "Delete Course", course, method: :delete %>
+               </div>
+
+                </div>
+                </div>
              </article>
-          </div> 
+          </div>
     </nav>
 <%end%>
 </div>

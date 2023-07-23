@@ -28,3 +28,19 @@
    margin-bottom: 0;
 }
 
+body {
+  background-color: #f7f7f7; /* Light gray background color */
+}
+
+/* Background color for the header */
+h1 {
+  background-color: #007bff; /* Bootstrap primary color for header */
+  color: #fff; /* Text color for header */
+  padding: 10px;
+}
+
+/* Background color for the buttons */
+.btn {
+  background-color: #0000ff; /* Bootstrap success color for buttons */
+  color: #fff; /* Text color for buttons */
+}

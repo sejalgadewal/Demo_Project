@@ -85,6 +85,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    cocoon (1.2.15)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     date (3.3.3)
@@ -99,7 +100,6 @@ GEM
       warden (~> 1.2.3)
     erubi (1.12.0)
     ffi (1.15.5)
-    ffi (1.15.5-x64-unknown)
     globalid (1.1.0)
       activesupport (>= 5.0)
     gravatar_image_tag (1.2.0)
@@ -141,6 +141,10 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.3)
       mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.15.3-x64-mingw-ucrt)
+      racc (~> 1.4)
+    nokogiri (1.15.3-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     public_suffix (5.0.3)
@@ -205,6 +209,8 @@ GEM
       sprockets (>= 3.0.0)
     sqlite3 (1.6.3)
       mini_portile2 (~> 2.8.0)
+    sqlite3 (1.6.3-x64-mingw-ucrt)
+    sqlite3 (1.6.3-x86_64-linux)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
     thor (1.2.2)
@@ -215,6 +221,8 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    tzinfo-data (1.2023.3)
+      tzinfo (>= 1.0.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
@@ -235,7 +243,7 @@ GEM
     zeitwerk (2.6.8)
 
 PLATFORMS
-  x64-unknown
+  x64-mingw-ucrt
   x64-unknown
   x86_64-linux
 
@@ -245,6 +253,7 @@ DEPENDENCIES
   bulma-rails (~> 0.9.4)
   byebug
   capybara
+  cocoon
   debug
   devise
   gravatar_image_tag
@@ -263,7 +272,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 3.0.0p0
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.2.3

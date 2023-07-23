@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  # get 'lectures/index'
+  # get 'quizzes/index'
+  # get 'quizzes/new'
+  # get 'quizzes/show'
+  # get 'quizzes/edit'
+  # get 'quizzes/destroy'
+  # # get 'lectures/index'
   # get 'lectures/new'
   # get 'lectures/create'
   # get 'lectures/edit'
@@ -20,13 +25,21 @@ Rails.application.routes.draw do
   # get 'courses/destroy'
   # get 'courses/show'
    get 'courses/mycourse'
+get 'lectures/mylecture'
+
 
   root "homes#index"
   resources :instructors  
-  
+  resources :enrollments, only: [:index]
+
   resources :courses do
     # post 'enroll', to: 'enrollments#create', on: :member      
-    get 'enroll', to: 'enrollments#create'                    #changed
+    get 'enroll', to: 'enrollments#create'
+    get 'mylecture', to: 'lectures#mylecture'
+    resources :lectures do
+      resources :quizzes, only: [:new,:create,:show]
+    end
+
   end
   resources :students
    resources :homes 
