@@ -49,7 +49,7 @@
                <% if user_signed_in? %> 
               
                   <% if current_user.role == 'Instructor'%>
-                  <p>Welcome, Instructor!</p>
+                  <p>Welcome, <%= current_user.email %> Instructor !</p>
                 <%#= render 'courses/index.html.erb' %>
                   <%#= render "temp" %>
                   
@@ -62,7 +62,11 @@
                 <%= button_to( "Log Out", destroy_user_session_path, method: :delete ) %>
                </p>
                   <%else%>
-                    <p>Welcome, Student!</p>
+                  <p class="control">
+                    <%= link_to 'Enrolled Courses', enrollments_path, class: "button is-info"%>
+                  </p>
+     
+                    <h1>Welcome, <%= current_user.email %> Student !</h1>
                     <%#= render 'courses/destroy.html.erb'%>
                 <p class="control">
                   <%= link_to current_user.name, edit_user_registration_path, class: "button is-info"%>
