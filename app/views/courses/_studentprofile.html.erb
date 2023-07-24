@@ -1,77 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-    /* div.content{
-        height: 1000px;
-        width: 250%;
-        background-color: powderblue;
-    } */
-    div.panel-block{
-        width: 50%;
-        
+  <style>
+    /* Adjust the styles as needed */
+    body {
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
     }
-</style>
+    .panel {
+      max-width: 800px;
+      margin: 20px auto;
+      border: 1px solid #ccc;
+      padding: 20px;
+      background-color: #fff;
+    }
+    .media {
+      display: flex;
+      align-items: center;
+    }
+    .media-content {
+      flex: 1;
+      margin-left: 20px;
+    }
+    .course-title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .course-description {
+      margin-top: 5px;
+      color: #666;
+    }
+    .enroll-button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .user-course-container {
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      padding: 10px;
+    }
+  </style>
 </head>
 
 <body>
-
-
- <div class="column is-one-quarter">
-    <nav class="panel">
-        <p class="panel-heading">Courses Available</p>
-        <div class="panel-block">
+  <div class="panel">
+    <h1>Courses Available</h1>
+    
+    <% user.find_each do |u| %>
+      <% if u.courses.exists? %>
+        <div class="user-course-container">
+          <center><strong>Created By: <%= u.name %></strong></center>
+          <% u.courses.pluck(:title, :description, :id).each do |title, description, id| %>
             <article class="media">
-                <div class="media-left">
-        
-                    <figure class="image is-64x64">
-                       <%= gravatar_image_tag(current_user.email, size:64,alt: current_user.name)%>
-                    </figure>
-                
-                <div class="media-content" >
-                    <div class="content">
-                        <p>
-                        
-                            <h2>List of Courses</h2>
-                            <%= user.find_each do |u| %>
-                                  
-
-                                <% if u.courses.exists? %>
-                                   <%# u.courses.find_each do |course| %>
-                                    <h3>Created By : -   <%= u.name %> </h3>
-                                      <% u.courses.pluck(:title,:description,:documents, :id).each do |i,i1,i2,i3| %>
-
-                                       <h4>Title Of Course</h4>                              
-                                        <%= i %> 
-                                        <br>
-
-                                        <h4>Description Of Course</h4>                        
-                                        <%= i1%>
-
-                                        <% if current_user && current_user.role=='Student?' && current_user.enrollments.where(course_id:i3) %>
-                                          <%= link_to 'View Course', '#' %>
-                                        <% else %>
-                                            <%= link_to 'Enroll', course_enroll_path(i3) %>
-                                         <% end %>
-
-
-                                        <br>
-                                        <br>
-                                        <%end%>
-                                    
-                                    <%end%>
-                            <%end%>
-
-                        </p>
-                    </div>
-
+              <div class="media-left">
+                <figure class="image is-64x64">
+                  <%= gravatar_image_tag(current_user.email, size: 64, alt: current_user.name) %>
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <div class="course-title"><%= title %></div>
+                  <div class="course-description"><%= description %></div>
+                  <% if current_user && current_user.role == 'Student?' && current_user.enrollments.where(course_id: id).exists? %>
+                    <a href="#" class="enroll-button">View Course</a>
+                  <% else %>
+                    <%= link_to 'Enroll', course_enroll_path(id), class: 'enroll-button' %>
+                  <% end %>
                 </div>
-                </div>
+              </div>
             </article>
-        </div> 
-    </nav> 
-</div> 
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </body>
-<html>
-
-
+</html>

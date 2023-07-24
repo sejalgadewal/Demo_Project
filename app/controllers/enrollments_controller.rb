@@ -3,6 +3,9 @@ class EnrollmentsController < ApplicationController
 
   def index
     @enrollments =current_user.enrollments
+      @enrollments.each do |enroll|
+        @enroll_course=enroll.course
+      end
   end
 
   def new

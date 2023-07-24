@@ -4,9 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable
   enum role: {Instructor: 0, Student: 1}
-  has_many :enrollments
+  has_many :enrollments, dependent: :destroy
   has_many :courses, dependent: :destroy
-  has_many :lectures
+  has_many :lectures, dependent: :destroy
   
 end
 

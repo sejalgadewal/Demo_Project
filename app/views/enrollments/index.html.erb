@@ -1,7 +1,7 @@
 <% if @enrollments.any? %>
 <% Course.joins(:enrollments).where("enrollments.user_id = ?",current_user.id). each do |enroll| %>
-      <h1 class="card-title"><%= enroll.title %></h1>
-          <p class="card-text">Description: <%= enroll.description %></p>
+      <h1 class="card-title">Course Title : - <%= enroll.title %></h1>
+          <p><strong class="card-text">Description: </strong><%= enroll.description %></p>
 
          <% if enroll.documents.attached? %>
                                 <% enroll.documents.each do |document| %>
@@ -11,13 +11,33 @@
           <p>No file attached.</p>
         <% end %>
 
+        <% if enroll.lectures.any? %>
+                              <% enroll.lectures.each do |lecture|%>
+                                <% if lecture.video.attached? %>
+                                  <p>Download Video: <%= link_to lecture.video.filename, rails_blob_path(lecture.video,disposition: 'attachment') %></p>
+                                <%end%>
+                                <br>
+                                <h1>Satrt Quiz :-    </h1>
+                                <h2>Quiz Topic :- </h2>
+                                <% if lecture.quiz.present? %>  
+                                  <%= lecture.quiz.title%>
+                                  <br>     
+                                <%end%>
+                                <br>
+                            <p> Quiz  Questions :-    </p> 
+                               
+                                <%= lecture.quiz.questions.pluck(:content).join(' ')%>
+                             
+
+                              <%end%>
+                            <%end%>
 
 <%end%>
 <%else%>
   <p>No enrollments for this course yet.</p>
 
 <%end%>
-
+<br>
 <%= link_to 'Back', courses_path, class: "btn btn-secondary" %>
 
 

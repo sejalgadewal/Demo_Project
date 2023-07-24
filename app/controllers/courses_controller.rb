@@ -14,6 +14,7 @@ class CoursesController < ApplicationController
 
   def new
     @course=Course.new
+    # @course.course_files.build 
   end
 
   def create
@@ -21,7 +22,6 @@ class CoursesController < ApplicationController
     @instructor = Instructor.find(instructor_id)
   
     @course = current_user.courses.build(course_params)
-  
     if @course.save
       redirect_to courses_mycourse_path, notice: "Course was successfully created." 
     else
@@ -48,9 +48,9 @@ class CoursesController < ApplicationController
 
 
   def destroy
-    instructor_id = current_user.id
-    @instructor = Instructor.find(instructor_id)
-    @course.destroy
+    # instructor_id = current_user.id
+    # @instructor = Instructor.find(instructor_id)
+     @course.destroy
     redirect_to courses_mycourse_path, notice: "Course was successfully destroyed."    
   end
 
@@ -65,7 +65,6 @@ class CoursesController < ApplicationController
     @courses = current_user.courses
    @lectures=current_user.lectures
    # @lectures=@courses.lectures
- 
   end
   private
 
