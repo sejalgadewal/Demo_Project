@@ -47,6 +47,10 @@ class LecturesController < ApplicationController
   end
 
   def destroy
+    @course = Course.find(params[:course_id])
+    @lecture = @course.lectures.find(params[:id])
+    @lecture.destroy
+    redirect_to course_lectures_path(@course), notice: "Lecture was successfully destroyed."    
   
   end
 
