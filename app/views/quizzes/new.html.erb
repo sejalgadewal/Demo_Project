@@ -7,15 +7,27 @@
   <%= form.text_field :title %>
 
   <!-- Question fields -->
-  <%= form.fields_for :questions do |question_form| %>
+  <%
+=begin%>
+ <%= form.fields_for :questions do |question_form| %>
 
       <%= render 'question_fields', f: question_form %>
 
-  <% end %>
-
-<div class="links">
-    <%= link_to_add_association 'Add Question', form, :questions, class: 'btn btn-primary' %>
+  <% end %> 
+<%
+=end%>
+<div id="questions">
+    <%= render 'question_fields', form: form, question: @quiz.questions.build %>
   </div>
+
+
+<%
+=begin%>
+ <div class="links">
+    <%= link_to_add_association 'Add Question', form, :questions, class: 'btn btn-primary' %>
+  </div> 
+<%
+=end%>
 
   <%= form.submit 'Create Quiz' %>
 <% end %>
