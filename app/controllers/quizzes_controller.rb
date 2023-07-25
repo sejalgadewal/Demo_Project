@@ -1,43 +1,36 @@
 class QuizzesController < ApplicationController
   def index
   end
- def show
+  def show
     @course = Course.find(params[:course_id])
     @lecture = @course.lectures.find(params[:lecture_id])
     @quiz = @lecture.quiz
   end
-
 
   def destroy
     @course = Course.find(params[:course_id])
     @lecture = @course.lectures.find(params[:lecture_id])
     @quiz=Quiz.find(params[:id])
     @quiz.destroy
-    redirect_to course_mylecture_path(@course), notice: "Lecture was successfully destroyed."    
-  
+    redirect_to course_mylecture_path(@course), notice: "Lecture was successfully destroyed."
   end
 
   def myquiz
     @course = Course.find(params[:course_id])
     @lecture = @course.lectures.find(params[:lecture_id])
     if @lecture.quiz.present?
-      @quiz = @lecture.quiz       
+      @quiz = @lecture.quiz  
      else
       redirect_to course_mylecture_path(@course), notice: 'No any quiz created....please create any quiz .'
-   
     end
-    
   end
 
-  
-def new
+  def new
     @course = Course.find(params[:course_id])
     @lecture = @course.lectures.find(params[:lecture_id])
     if @lecture.quiz.present?
-     # redirect_to course_lecture_quiz_path(@course, @lecture, @lecture.quiz), notice: 'Quiz was already created.'
-      redirect_to course_lecture_myquiz_path(@course, @lecture), notice: 'Quiz was already created.'
-   
-      
+      # redirect_to course_lecture_quiz_path(@course, @lecture, @lecture.quiz), notice: 'Quiz was already created.'
+      redirect_to course_lecture_myquiz_path(@course, @lecture), notice: 'Quiz was already created.' 
     else
     @quiz = @lecture.build_quiz
     @quiz.questions.build
@@ -52,7 +45,6 @@ def new
     if @quiz.save
       #redirect_to course_lecture_path(@course, @lecture), notice: 'Quiz was successfully created.'
       redirect_to course_lecture_myquiz_path(@course, @lecture), notice: 'Quiz was successfully created.'
-
     else
       render :new
     end
@@ -79,7 +71,6 @@ def new
     if @quiz.save
       #redirect_to course_lecture_path(@course, @lecture), notice: 'Quiz was successfully created.'
       redirect_to course_lecture_myquiz_path(@course, @lecture), notice: 'Quiz was successfully updated.'
-
     else
       render :edit
     end
@@ -90,5 +81,4 @@ def new
   def quiz_params
     params.require(:quiz).permit(:title, questions_attributes: [:id, :content, :_destroy])
   end
-
  end
