@@ -25,9 +25,19 @@ class LecturesController < ApplicationController
   end
 
   def edit
+    @course = Course.find(params[:course_id])
+    @lecture = @course.lectures.find(params[:id])
   end
 
   def update
+    @course = Course.find(params[:course_id])
+    @lecture = @course.lectures.find(params[:id])
+
+    if @lecture.update(lecture_params)
+      redirect_to course_lectures_path(@course), notice: "Lecture was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity 
+    end
   end
 
   def show
