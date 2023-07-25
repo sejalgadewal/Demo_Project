@@ -3,9 +3,13 @@ class EnrollmentsController < ApplicationController
 
   def index
     @enrollments =current_user.enrollments
-      @enrollments.each do |enroll|
-        @enroll_course=enroll.course
-      end
+      # @enrollments.each do |enroll|
+      #   @enroll_course=enroll.course
+      # end
+     #@enrolls= Course.joins(:enrollments)
+
+      @enrolls=Course.joins(:enrollments).where("enrollments.user_id = ?",current_user.id)
+
   end
 
   def new

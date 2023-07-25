@@ -24,6 +24,10 @@ Rails.application.routes.draw do
   # get 'courses/edit'
   # get 'courses/destroy'
   # get 'courses/show'
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener"
+
+
    get 'courses/mycourse'
 get 'lectures/mylecture'
 get 'quizzes/myquiz'

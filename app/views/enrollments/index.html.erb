@@ -1,5 +1,7 @@
 <% if @enrollments.any? %>
-<% Course.joins(:enrollments).where("enrollments.user_id = ?",current_user.id). each do |enroll| %>
+<%# Course.joins(:enrollments).where("enrollments.user_id = ?",current_user.id).each do |enroll| %>
+<% @enrolls.each do |enroll| %>
+      
       <h1 class="card-title">Course Title : - <%= enroll.title %></h1>
           <p><strong class="card-text">Description: </strong><%= enroll.description %></p>
 
@@ -7,8 +9,6 @@
                                 <% enroll.documents.each do |document| %>
                                   <p>Download File: <%= link_to document.filename, rails_blob_path(document) %></p>
                                 <%end%>
-        <% else %>
-          <p>No file attached.</p>
         <% end %>
 
         <% if enroll.lectures.any? %>

@@ -18,16 +18,22 @@ class CoursesController < ApplicationController
   end
 
   def create
+    
+
     instructor_id = current_user.id
     @instructor = Instructor.find(instructor_id)
   
     @course = current_user.courses.build(course_params)
+    
     if @course.save
       redirect_to courses_mycourse_path, notice: "Course was successfully created." 
     else
       render :new, status: :unprocessable_entity 
     end 
-    
+    students = User.where(role: "Student")
+    students.each do |student|
+      CourseMailer.send_lecture_email(student, @course).deliver_now
+    end
   end
 
   def edit
