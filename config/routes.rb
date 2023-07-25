@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   # get 'courses/show'
    get 'courses/mycourse'
 get 'lectures/mylecture'
-
+get 'quizzes/myquiz'
 
   root "homes#index"
   resources :instructors  
@@ -37,7 +37,8 @@ get 'lectures/mylecture'
     get 'enroll', to: 'enrollments#create'
     get 'mylecture', to: 'lectures#mylecture'
     resources :lectures do
-      resources :quizzes, only: [:new,:create,:show]
+      get 'myquiz', to: 'quizzes#myquiz'
+      resources :quizzes, only: [:new,:create,:show,:edit,:update,:destroy]
     end
 
   end

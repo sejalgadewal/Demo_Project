@@ -13,13 +13,18 @@
 <%#end%>
  -->
 
-<% if @quiz.present? %>
+
+ <% if @quiz.present? %>
   <h2> Quiz: <%= @quiz.title %></h2>
   <% @quiz.questions.each do |question| %>
     <p><strong>Question:</strong> <%= question.content %></p>
+    <%#= link_to 'Update Question',  %></p>
+       
   <% end %>
 <% else %>
   <p>No quiz available for this lecture.</p>
 <% end %>
 
-<%= link_to 'Back to Lectures', course_lectures_path(@course) %>
+<div class="content" style="display: inline-block; margin-left: 10px;">
+    <%= link_to "Back to Lectures", course_lectures_path(@course), class: 'btn btn-secondary' %>
+  </div> 
