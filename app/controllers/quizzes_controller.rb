@@ -1,18 +1,32 @@
 class QuizzesController < ApplicationController
   def index
   end
+
+  def submit_answer
+    selected_answer_id = params[:selected_answer]
+    question_id = params[:question_id]
+    correct_answer = Answer.find(question_id).correct
+    
+    redirect_to course_lecture_quiz_path(params[:course_id], params[:lecture_id], params[:quiz_id]), notice: 'Answer submitted successfully!'
+  end
+
+
+
   def show
     @course = Course.find(params[:course_id])
     @lecture = @course.lectures.find(params[:lecture_id])
-    @quiz = @lecture.quiz
+    @quiz=Quiz.find(params[:id])
+#    @quiz = @lecture.quiz
   end
 
   def destroy
     @course = Course.find(params[:course_id])
     @lecture = @course.lectures.find(params[:lecture_id])
     @quiz=Quiz.find(params[:id])
-    @quiz.destroy
-    redirect_to course_mylecture_path(@course), notice: "Lecture was successfully destroyed."
+   # @ques=Question.find(params[:id])
+    #@quiz.destroy
+    @ques.destroy
+    redirect_to course_mylecture_path(@course), notice: "Question was successfully destroyed."
   end
 
   def myquiz
@@ -28,12 +42,13 @@ class QuizzesController < ApplicationController
   def new
     @course = Course.find(params[:course_id])
     @lecture = @course.lectures.find(params[:lecture_id])
-    if @lecture.quiz.present?
+    @quiz=@lecture.quiz
+    if @quiz.present?
       # redirect_to course_lecture_quiz_path(@course, @lecture, @lecture.quiz), notice: 'Quiz was already created.'
-      redirect_to course_lecture_myquiz_path(@course, @lecture), notice: 'Quiz was already created.' 
+      redirect_to course_lecture_quiz_path(@course,@lecture,@quiz), notice: 'Quiz was already created.' 
     else
     @quiz = @lecture.build_quiz
-    @quiz.questions.build
+    #@quiz.questions.build
     end
   end
 
@@ -44,7 +59,9 @@ class QuizzesController < ApplicationController
 
     if @quiz.save
       #redirect_to course_lecture_path(@course, @lecture), notice: 'Quiz was successfully created.'
-      redirect_to course_lecture_myquiz_path(@course, @lecture), notice: 'Quiz was successfully created.'
+    #  redirect_to course_lecture_myquiz_path(@course, @lecture), notice: 'Quiz was successfully created.'
+    redirect_to course_lecture_quiz_path(@course,@lecture,@quiz)
+    
     else
       render :new
     end
@@ -79,6 +96,6 @@ class QuizzesController < ApplicationController
   private
 
   def quiz_params
-    params.require(:quiz).permit(:title, questions_attributes: [:id, :content, :_destroy],answers_attributes: [:id, :content, :correct, :_destroy] )
+    params.require(:quiz).permit(:title )
   end
  end

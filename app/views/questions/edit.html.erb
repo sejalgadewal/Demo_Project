@@ -1,0 +1,7 @@
+   <br>
+    <center><h1 style="font-weight: bold; margin: 50px;">Update Question</h1></center>
+
+<div id="questions">
+    <%#= render 'question_fields', form: form, question: @quiz.questions.build %>
+    <%= render 'question_fields', quiz: @quiz, question: @question, course: @course %>
+  </div>

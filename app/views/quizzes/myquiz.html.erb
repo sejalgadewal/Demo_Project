@@ -5,11 +5,22 @@
 <% @quiz.questions.each do  |ques|%>
    
     <div class="content" style="display: inline-block; margin-left: 10px;">
-     <small> Question :- <%= ques.content%></small>  
-        <strong><%= link_to 'Update Question', edit_course_lecture_quiz_path(@course,@lecture,@quiz), class: 'btn btn-secondary' %></strong>
-        <strong><%= button_to 'Delete Question', course_lecture_quiz_path(@course,@lecture,@quiz), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></strong>
-    </div>
+     <small> Question :- <%= ques.content%></small><br>  
+     <small> (a) :- <%= ques.answer1%></small>  <br>
+     <small> (b) :- <%= ques.answer2%></small>  <br>
+     <small> (c) :- <%= ques.answer3%></small>  <br>
+     <small> (d) :- <%= ques.answer4%></small>  <br>
+     <small> Correct_Answer :- <%= ques.correct %></small>  <br>
+     
 
+        <strong><%= link_to 'Update Question', edit_quiz_question_path(@quiz, ques), class: 'btn btn-secondary' %></strong>
+       
+        <strong><%#= button_to 'Delete Question', course_lecture_quiz_path(@course,@lecture,@quiz), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></strong>
+        <strong><%= button_to 'Delete Question', quiz_question_path(@quiz, ques), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></strong>
+ 
+    </div>
+    
+    
 
 <%end%>
 

@@ -3,6 +3,5 @@ class CourseMailer < ApplicationMailer
       @student = student
       @course = course
       mail(to: @student.email, subject: "New Lecture Available in #{@course.title}")
-       
     end
 end

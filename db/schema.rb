@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_25_141616) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_26_053727) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -94,6 +94,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_141616) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "quiz_id"
+    t.string "answer1"
+    t.string "answer2"
+    t.string "answer3"
+    t.string "answer4"
+    t.integer "correct"
     t.index ["quiz_id"], name: "index_questions_on_quiz_id"
   end
 

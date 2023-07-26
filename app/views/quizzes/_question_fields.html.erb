@@ -1,21 +1,20 @@
-<%
-=begin%>
- <div class="nested-fields">
-  <%= f.label :content %>
-  <%= f.text_area :content %>
-  <%= link_to_remove_association 'Remove Question', f, class: 'btn btn-danger' %>
-</div> 
-<%
-=end%>
-
 
 <div class="question">
   <%= form.fields_for :questions, question do |question_fields| %>
     <%= question_fields.label :content, "Question" %>
     <%= question_fields.text_area :content %>
+    <br>
+    <%
 
-    <div class="answers">
-      <%= render 'answer_fields', form: question_fields , answer: question.answers.build %>
-    </div>
+
+    <% 1.upto(4) do |i| %>
+    <%= question_fields.label "answer#{i}", "Answer #{i}" %>
+    <%= question_fields.text_field "answer#{i}", class: "form-control mb-3" %> <br>
+    <% end %> 
+
+    <%= question_fields.label :correct, "Correct Answer" %>
+    <%= question_fields.select :correct, (1..4).to_a, {}, class: "form-control mb-3" %>
+    <%#= question_fields.select :correct, (1..4), class: "form-control mb-3" %>
+  
   <% end %>
 </div>

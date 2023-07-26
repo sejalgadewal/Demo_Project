@@ -9,7 +9,20 @@ class EnrollmentsController < ApplicationController
      #@enrolls= Course.joins(:enrollments)
 
       @enrolls=Course.joins(:enrollments).where("enrollments.user_id = ?",current_user.id)
+      
+       @enrolls.each do |enroll|
+          @lectures=enroll.lectures
+       end
+       @lectures.each do |lecture|
+          @quiz=lecture.quiz
+            @questions=@quiz.questions
+      end
+      
 
+
+      # end
+      # @quiz=@lecture.quiz
+      # @questions=@quiz.questions
   end
 
   def new

@@ -1,35 +1,18 @@
-<!-- app/views/quizzes/new.html.erb -->
-<h1>Create New Quiz</h1>
+<div style="background-color: #f0f0f0; padding: 20px; text-align: center;">
+  <h1>Create New Quiz</h1>
 
-<%= form_with(model: [@course, @lecture, @quiz], local: true) do |form| %>
-  <!-- Quiz fields -->
-  <%= form.label :title %>
-  <%= form.text_field :title %>
+  <div style="background-color: #fff; padding: 20px; display: inline-block;">
+    <%= form_with(model: [@course, @lecture, @quiz], local: true) do |form| %>
+      <div style="margin-bottom: 10px;">
+        <%= form.label :title %><br>
+        <%= form.text_field :title %>
+      </div>
 
-  <!-- Question fields -->
-  <%
-=begin%>
- <%= form.fields_for :questions do |question_form| %>
-
-      <%= render 'question_fields', f: question_form %>
-
-  <% end %> 
-<%
-=end%>
-<div id="questions">
-    <%= render 'question_fields', form: form, question: @quiz.questions.build %>
+      <%= form.submit 'Create Quiz', style: "background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" %>
+    <% end %>
   </div>
+</div>
 
-
-<%
-=begin%>
- <div class="links">
-    <%= link_to_add_association 'Add Question', form, :questions, class: 'btn btn-primary' %>
-  </div> 
-<%
-=end%>
-
-  <%= form.submit 'Create Quiz' %>
-<% end %>
-
-<%= link_to 'Back to Lecture', course_mylecture_path(@course, @lecture) %>
+<div style="text-align: center; margin-top: 10px;">
+  <%= link_to 'Back to Lecture', course_mylecture_path(@course, @lecture), style: "display: inline-block; background-color: #337ab7; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;" %>
+</div>

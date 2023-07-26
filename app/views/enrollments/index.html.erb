@@ -1,44 +1,48 @@
 <% if @enrollments.any? %>
-<%# Course.joins(:enrollments).where("enrollments.user_id = ?",current_user.id).each do |enroll| %>
-<% @enrolls.each do |enroll| %>
-      
-      <h1 class="card-title">Course Title : - <%= enroll.title %></h1>
-          <p><strong class="card-text">Description: </strong><%= enroll.description %></p>
+  <% @enrolls.each do |enroll| %>
+    <div class="course-box" style="background-color: #f0f0f0; padding: 20px; margin: 10px;">
+      <h1 class="card-title">Course Title: <%= enroll.title %></h1>
+      <p><strong class="card-text">Description:</strong> <%= enroll.description %></p>
 
-         <% if enroll.documents.attached? %>
-                                <% enroll.documents.each do |document| %>
-                                  <p>Download File: <%= link_to document.filename, rails_blob_path(document) %></p>
-                                <%end%>
+      <% if enroll.documents.attached? %>
+        <% enroll.documents.each do |document| %>
+          <p>Download File: <%= link_to document.filename, rails_blob_path(document) %></p>
         <% end %>
+      <% end %>
 
-        <% if enroll.lectures.any? %>
-                              <% enroll.lectures.each do |lecture|%>
-                                <% if lecture.video.attached? %>
-                                  <p>Download Video: <%= link_to lecture.video.filename, rails_blob_path(lecture.video,disposition: 'attachment') %></p>
-                                <%end%>
-                                <br>
-                                <h1>Satrt Quiz :-    </h1>
-                                <h2>Quiz Topic :- </h2>
-                                <% if lecture.quiz.present? %>  
-                                  <%= lecture.quiz.title%>
-                                  <br>     
-                                <%end%>
-                                <br>
-                            <p> Quiz  Questions :-    </p> 
-                               
-                                <%= lecture.quiz.questions.pluck(:content).join(' ')%>
-                             
-
-                              <%end%>
-                            <%end%>
-
-<%end%>
-<%else%>
+      <% if enroll.lectures.any? %>
+        <% enroll.lectures.each do |lecture| %>
+          <% if lecture.video.attached? %>
+            <p>Lecture Video: <%= link_to lecture.video.filename, rails_blob_path(lecture.video, disposition: 'attachment') %></p>
+          <% end %>
+          <br>
+          <div style="background-color: #f9f9f9; padding: 10px;">
+            <center><h2>Start Quiz</h2></center>
+            <h2>Quiz Topic: <%= @quiz.title %></h2>
+            <% if lecture.quiz.present? %>  
+              <p>Quiz Questions:</p> 
+              <% lecture.quiz.questions.each do |question| %>
+                <div style="background-color: #fff; border: 1px solid #ccc; padding: 10px; margin: 10px;">
+                  <p><strong>Question: <%= question.content %></strong></p>
+                  <%= form_tag submit_answer_quiz_question_path(@quiz,question), method: :post do %>
+                    <%#= hidden_field_tag 'question_id', question.id %>
+                    <p><label><%= radio_button_tag 'selected_answer', question.answer1 %>(a) <%= question.answer1 %></label></p>
+                    <p><label><%= radio_button_tag 'selected_answer', question.answer2 %>(b) <%= question.answer2 %></label></p>
+                    <p><label><%= radio_button_tag 'selected_answer', question.answer3 %>(c) <%= question.answer3 %></label></p>
+                    <p><label><%= radio_button_tag 'selected_answer', question.answer4 %>(d) <%= question.answer4 %></label></p>
+                    <%= submit_tag 'Submit Answer', class: 'btn btn-primary' %>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
   <p>No enrollments for this course yet.</p>
+<% end %>
 
-<%end%>
 <br>
 <%= link_to 'Back', courses_path, class: "btn btn-secondary" %>
-
-
-
