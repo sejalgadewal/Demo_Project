@@ -1,14 +1,24 @@
 Rails.application.routes.draw do
+  get 'messages/new'
+  get 'rooms/index'
  
 
+  # devise_scope :users do
+  #    get 'users/:id', to: 'registrations#show', as: 'user'
+  # end
+ # get 'users/:id', to: 'users#show', as: 'user'
+  
   mount LetterOpenerWeb::Engine, at: "/letter_opener"
-
+  resources :rooms do
+    resources :messages
+  end
 
    get 'courses/mycourse'
 get 'lectures/mylecture'
 get 'quizzes/myquiz'
 
   root "homes#index"
+
   resources :instructors  
   resources :enrollments, only: [:index]
 

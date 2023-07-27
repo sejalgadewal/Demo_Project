@@ -7,9 +7,11 @@ class EnrollmentsController < ApplicationController
       #   @enroll_course=enroll.course
       # end
      #@enrolls= Course.joins(:enrollments)
+      if @enrollments.any?
 
-      @enrolls=Course.joins(:enrollments).where("enrollments.user_id = ?",current_user.id)
+        @enrolls=Course.joins(:enrollments).where("enrollments.user_id = ?",current_user.id)
       
+
        @enrolls.each do |enroll|
           @lectures=enroll.lectures
        end
@@ -17,7 +19,7 @@ class EnrollmentsController < ApplicationController
           @quiz=lecture.quiz
             @questions=@quiz.questions
       end
-      
+    end 
 
 
       # end

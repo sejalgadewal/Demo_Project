@@ -11,11 +11,26 @@
     <%= javascript_include_tag  'application','data-turbolinks-track': 'reload' %>   
     <%= javascript_importmap_tags %>
 
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <style>
+    <%= ".msg-#{current_user&.id}" %> {
+    background-color: #007bff !important;
+    padding: 10px;
+    }
+    <%= ".cont-#{current_user&.id}" %> {
+    display: flex;
+    justify-content: flex-end
+    }
+    </style>
+
+
     <%#= stylesheet_link_tag "application", "data-turbo-track":"reload" %>
     <%#= javascript_importmap_tags %>
   </head>
 
   <body>
+  <%#= render "layouts/navbar" %>
   <% if flash[:notice] %>
       <div class="notification is-primary global-notification">
       <p class="notice"><%= notice%></p>
@@ -47,12 +62,15 @@
       
 
                <% if user_signed_in? %> 
-              
+                  <%= link_to "Start Chatting", rooms_path %>
+                 
                   <% if current_user.role == 'Instructor'%>
+                  <%#= link_to "Start Chatting", rooms_path %>
+                 
                   <p>Welcome, <%= current_user.email %> Instructor !</p>
                 <%#= render 'courses/index.html.erb' %>
                   <%#= render "temp" %>
-                  
+                 
 
                <p class="control">
                   <%= link_to current_user.name, edit_user_registration_path, class: "button is-info"%>
@@ -65,7 +83,8 @@
                   <p class="control">
                     <%= link_to 'Enrolled Courses', enrollments_path, class: "button is-info"%>
                   </p>
-     
+         <%#= link_to "Start Chatting", rooms_path %>
+                 
                     <h1>Welcome, <%= current_user.email %> Student !</h1>
                     <%#= render 'courses/destroy.html.erb'%>
                 <p class="control">
