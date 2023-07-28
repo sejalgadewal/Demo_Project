@@ -1,41 +1,45 @@
 <% if @enrollments.any? %>
-  <% @enrolls.each do |enroll| %>
+  <% @enrollments.each do |enrollment| %>
     <div class="course-box" style="background-color: #f0f0f0; padding: 20px; margin: 10px;">
-      <h1 class="card-title">Course Title: <%= enroll.title %></h1>
-      <p><strong class="card-text">Description:</strong> <%= enroll.description %></p>
+      <!-- ... (your existing code) ... -->
+      <h1 class="card-title">Course Title: <%= enrollment.course.title %></h1>
+      <p><strong class="card-text">Description:</strong> <%= enrollment.course.description %></p>
 
-      <% if enroll.documents.attached? %>
-        <% enroll.documents.each do |document| %>
+      <% if enrollment.course.documents.attached? %>
+        <% enrollment.course.documents.each do |document| %>
           <p>Download File: <%= link_to document.filename, rails_blob_path(document) %></p>
         <% end %>
       <% end %>
-
-      <% if enroll.lectures.any? %>
-        <% enroll.lectures.each do |lecture| %>
-          <% if lecture.video.attached? %>
+      <% if enrollment.course.lectures.any? %>
+        <% enrollment.course.lectures.each do |lecture| %>
+        <% if lecture.video.attached? %>
             <p>Lecture Video: <%= link_to lecture.video.filename, rails_blob_path(lecture.video, disposition: 'attachment') %></p>
           <% end %>
           <br>
-          <div style="background-color: #f9f9f9; padding: 10px;">
-            <center><h2>Start Quiz</h2></center>
-            <h2>Quiz Topic: <%= @quiz.title %></h2>
-            <% if lecture.quiz.present? %>  
-              <p>Quiz Questions:</p> 
-              <% lecture.quiz.questions.each do |question| %>
-                <div style="background-color: #fff; border: 1px solid #ccc; padding: 10px; margin: 10px;">
-                  <p><strong>Question: <%= question.content %></strong></p>
-                  <%= form_tag submit_answer_quiz_question_path(@quiz,question), method: :post do %>
-                    <%#= hidden_field_tag 'question_id', question.id %>
-                    <p><label><%= radio_button_tag 'selected_answer', question.answer1 %>(a) <%= question.answer1 %></label></p>
-                    <p><label><%= radio_button_tag 'selected_answer', question.answer2 %>(b) <%= question.answer2 %></label></p>
-                    <p><label><%= radio_button_tag 'selected_answer', question.answer3 %>(c) <%= question.answer3 %></label></p>
-                    <p><label><%= radio_button_tag 'selected_answer', question.answer4 %>(d) <%= question.answer4 %></label></p>
-                    <%= submit_tag 'Submit Answer', class: 'btn btn-primary' %>
-                  <% end %>
-                </div>
+          <% if lecture.quiz.present? %>
+            <div style="background-color: #f9f9f9; padding: 10px;">
+              <center><h2>Start Quiz</h2></center>
+              <h2>Quiz Topic: <%= lecture.quiz.title %></h2>
+              <%= form_tag quiz_questions_path(lecture.quiz), method: :get, id: "quiz-form", class: "quiz-form" do %>
+                <% lecture.quiz.questions.each do |question| %>
+                  <div style="background-color: #fff; border: 1px solid #ccc; padding: 10px; margin: 10px;">
+                    <p><strong>Question: <%= question.content %></strong></p>
+                    <%#= hidden_field_tag 'questions[]', question.id %>
+                    <p><label><%= radio_button_tag "#{question.id}", question.answer1 %>(a) <%= question.answer1 %></label></p>
+                    <p><label><%= radio_button_tag "#{question.id}", question.answer2 %>(b) <%= question.answer2 %></label></p>
+                    <p><label><%= radio_button_tag "#{question.id}", question.answer3 %>(c) <%= question.answer3 %></label></p>
+                    <p><label><%= radio_button_tag "#{question.id}", question.answer4 %>(d) <%= question.answer4 %></label></p>
+                  </div>
+                <% end %>
+                <%= submit_tag 'Submit Answers', class: 'btn btn-primary', id: 'submit-button', disabled: true %>
+              
+            <div id="error-message" style=" color: red; margin: 10px;">
+              notice: "Please select an answer for all questions before submitting the quiz.
+            </div>
+
               <% end %>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         <% end %>
       <% end %>
     </div>
@@ -46,3 +50,30 @@
 
 <br>
 <%= link_to 'Back', courses_path, class: "btn btn-secondary" %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var quizForm = document.getElementById("quiz-form");
+    var errorContainer = document.getElementById("error-message");
+
+    quizForm.addEventListener("change", validateForm);
+
+    function validateForm() {
+      var questionRadios = quizForm.querySelectorAll('input[type="radio"]');
+      var allQuestionsAnswered = true;
+
+      questionRadios.forEach(function(radio) {
+        var questionId = radio.getAttribute("name");
+        var selectedAnswer = quizForm.querySelector('input[name="' + questionId + '"]:checked');
+        if (!selectedAnswer) {
+          allQuestionsAnswered = false;
+        }
+      });
+
+      var submitButton = document.getElementById("submit-button");
+      submitButton.disabled = !allQuestionsAnswered;
+
+      errorContainer.style.display = allQuestionsAnswered ? "none" : "block";
+    }
+  });
+</script>

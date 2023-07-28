@@ -2,16 +2,19 @@ class QuestionsController < ApplicationController
   def index
     @quiz= Quiz.find(params[:quiz_id])
     @questions = @quiz.questions
+    
     @lecture=@quiz.lecture
     @course=@lecture.course
     # authorize! :manage, @question
 
   end
   def show
+    
   end
 
   def submit_answer
     selected_answer_id = params[:selected_answer]
+    
     @question_id = Question.find(params[:id])
     @correct_answer=@question_id.correct
 
