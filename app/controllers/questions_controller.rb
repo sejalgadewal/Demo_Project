@@ -4,6 +4,8 @@ class QuestionsController < ApplicationController
     @questions = @quiz.questions
     @lecture=@quiz.lecture
     @course=@lecture.course
+    # authorize! :manage, @question
+
   end
   def show
   end
@@ -25,8 +27,11 @@ class QuestionsController < ApplicationController
 
 
   def destroy
+
     @quiz= Quiz.find(params[:quiz_id])
     @question=@quiz.questions.find(params[:id])
+    authorize! :manage, @question
+
     @question.destroy
     redirect_to quiz_questions_path(@quiz), notice: "Question was successfully Destroyed."
   end
@@ -38,12 +43,15 @@ class QuestionsController < ApplicationController
    @question=@quiz.questions.new
    @lecture=@quiz.lecture
    @course=@lecture.course
+
    
   end
 
   def create
+    
     @quiz= Quiz.find(params[:quiz_id])
     @question=@quiz.questions.create(question_params)
+    authorize! :manage, @question
 
     if @question.save
       redirect_to quiz_questions_path(@quiz), notice: 'Question Successfully created'
@@ -64,7 +72,8 @@ class QuestionsController < ApplicationController
   def update
     @quiz= Quiz.find(params[:quiz_id])
    @question=@quiz.questions.find(params[:id])
-   
+    # authorize! :manage, @question
+
     if @question.update(question_params)
       redirect_to quiz_questions_path(@quiz), notice: "Question was successfully updated."
     else

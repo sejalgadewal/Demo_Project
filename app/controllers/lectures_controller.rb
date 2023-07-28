@@ -1,6 +1,6 @@
 class LecturesController < ApplicationController
-  #before_action :authenticate_user!
-
+  before_action :authenticate_user!
+  load_and_authorize_resource
   def index
     @course=Course.find(params[:course_id])
     @lectures= @course.lectures
@@ -32,7 +32,8 @@ class LecturesController < ApplicationController
   def update
     @course = Course.find(params[:course_id])
     @lecture = @course.lectures.find(params[:id])
-
+    # authorize! :manage, @lecture
+   
     if @lecture.update(lecture_params)
       redirect_to course_lectures_path(@course), notice: "Lecture was successfully updated."
     else

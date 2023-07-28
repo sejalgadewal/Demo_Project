@@ -1,4 +1,5 @@
 class QuizzesController < ApplicationController
+  
   def index
   end
 
@@ -16,6 +17,7 @@ class QuizzesController < ApplicationController
     @course = Course.find(params[:course_id])
     @lecture = @course.lectures.find(params[:lecture_id])
     @quiz=Quiz.find(params[:id])
+    
 #    @quiz = @lecture.quiz
   end
 
@@ -25,6 +27,8 @@ class QuizzesController < ApplicationController
     @quiz=Quiz.find(params[:id])
    # @ques=Question.find(params[:id])
     #@quiz.destroy
+    authorize! :manage, @quiz
+
     @ques.destroy
     redirect_to course_mylecture_path(@course), notice: "Question was successfully destroyed."
   end
@@ -37,6 +41,8 @@ class QuizzesController < ApplicationController
      else
       redirect_to course_mylecture_path(@course), notice: 'No any quiz created....please create any quiz .'
     end
+    authorize! :manage, @quiz
+
   end
 
   def new
@@ -56,6 +62,7 @@ class QuizzesController < ApplicationController
     @course = Course.find(params[:course_id])
     @lecture = @course.lectures.find(params[:lecture_id])
     @quiz = @lecture.build_quiz(quiz_params)
+    authorize! :manage, @quiz
 
     if @quiz.save
       #redirect_to course_lecture_path(@course, @lecture), notice: 'Quiz was successfully created.'
@@ -83,6 +90,8 @@ class QuizzesController < ApplicationController
     @lecture = @course.lectures.find(params[:lecture_id])
     #@quiz = @lecture.update_quiz(quiz_params)
     @quiz=@lecture.quiz
+    authorize! :manage, @quiz
+
     @quiz.update(quiz_params)
     #@quiz.questions.update(quiz_params)
     if @quiz.save

@@ -24,7 +24,7 @@ class CoursesController < ApplicationController
     @instructor = Instructor.find(instructor_id)
   
     @course = current_user.courses.build(course_params)
-    
+    authorize! :manage, @course
     if @course.save
       redirect_to courses_mycourse_path, notice: "Course was successfully created." 
     else
@@ -42,7 +42,7 @@ class CoursesController < ApplicationController
   def update
     instructor_id = current_user.id
     @instructor = Instructor.find(instructor_id)
-  
+    authorize! :manage, @course
     if @course.update(course_params)
       redirect_to courses_mycourse_path, notice: "Course was successfully updated."
     else
@@ -56,6 +56,7 @@ class CoursesController < ApplicationController
   def destroy
     # instructor_id = current_user.id
     # @instructor = Instructor.find(instructor_id)
+    authorize! :manage, @course
      @course.destroy
     redirect_to courses_mycourse_path, notice: "Course was successfully destroyed."    
   end

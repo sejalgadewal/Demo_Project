@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
-
+  
   def index
     @room=Room.new
     @current_user= current_user
@@ -10,6 +10,8 @@ class RoomsController < ApplicationController
   
   def create
     @room = Room.create(name: params["room"]["name"])
+    authorize! :manage, @room
+
   end
 
   def show
