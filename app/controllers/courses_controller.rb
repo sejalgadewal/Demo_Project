@@ -14,15 +14,9 @@ class CoursesController < ApplicationController
 
   def new
     @course=Course.new
-    # @course.course_files.build 
   end
 
   def create
-    
-
-    instructor_id = current_user.id
-    @instructor = Instructor.find(instructor_id)
-  
     @course = current_user.courses.build(course_params)
     authorize! :manage, @course
     if @course.save
@@ -40,45 +34,35 @@ class CoursesController < ApplicationController
   end
 
   def update
-    instructor_id = current_user.id
-    @instructor = Instructor.find(instructor_id)
     authorize! :manage, @course
     if @course.update(course_params)
       redirect_to courses_mycourse_path, notice: "Course was successfully updated."
     else
       render :edit, status: :unprocessable_entity 
     end
-   end
-
-
-
+  end
 
   def destroy
-    # instructor_id = current_user.id
-    # @instructor = Instructor.find(instructor_id)
     authorize! :manage, @course
-     @course.destroy
+    @course.destroy
     redirect_to courses_mycourse_path, notice: "Course was successfully destroyed."    
   end
 
   def show
-    @course=Course.find(params[:id])
     @user=User.where(role: "Instructor")
-    @lectures=@course.lectures
-  
+    @lectures=@course.lectures 
   end
 
   def mycourse
     @courses = current_user.courses
-   @lectures=current_user.lectures
-   # @lectures=@courses.lectures
+    @lectures=current_user.lectures
   end
+ 
   private
-
-    def course_params
-      params.require(:course).permit(:title, :description, documents: [])
-    end
-    def set_course
-      @course=Course.find(params[:id])
-    end
+  def course_params
+    params.require(:course).permit(:title, :description, documents: [])
+  end
+  def set_course
+    @course=Course.find(params[:id])
+  end
 end

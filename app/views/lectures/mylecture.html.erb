@@ -1,5 +1,4 @@
- <h1>Quiz for <%= @course.title %></h1>
-  <% @lectures.each do |lecture|%>
+<% @lectures.each do |lecture|%>
     <% if lecture.video.attached? %>
      <p>Download Video: <%= link_to lecture.video.filename, rails_blob_path(lecture.video,disposition: 'attachment') %></p>
      

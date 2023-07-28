@@ -3,33 +3,6 @@ class EnrollmentsController < ApplicationController
 
   def index
     @enrollments =current_user.enrollments
-    
-      # @enrollments.each do |enroll|
-      #   @enroll_course=enroll.course
-      # end
-     #@enrolls= Course.joins(:enrollments)
-      # if @enrollments.any?
-
-      #   @enrolls=Course.joins(:enrollments).where("enrollments.user_id = ?",current_user.id)
-      
-
-      #  @enrolls.each do |enroll|
-      #     @lectures=enroll.lectures
-      #  end
-      #    @lectures.each do |lecture|
-      #     @quiz=lecture.quiz
-      #       @questions=@quiz.questions
-      #    end
-      #    @questions.each do |question1|
-      #     @question1 = question1
-      #    end
-
-    # end 
-
-
-      # end
-      # @quiz=@lecture.quiz
-      # @questions=@quiz.questions
   end
 
   def new

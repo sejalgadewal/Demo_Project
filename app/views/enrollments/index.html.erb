@@ -1,7 +1,7 @@
 <% if @enrollments.any? %>
   <% @enrollments.each do |enrollment| %>
     <div class="course-box" style="background-color: #f0f0f0; padding: 20px; margin: 10px;">
-      <!-- ... (your existing code) ... -->
+
       <h1 class="card-title">Course Title: <%= enrollment.course.title %></h1>
       <p><strong class="card-text">Description:</strong> <%= enrollment.course.description %></p>
 
