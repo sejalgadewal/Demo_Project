@@ -6,32 +6,32 @@
           <h1 class="card-title"><%= @course.title %></h1>
           <p class="card-text">Description: <%= @course.description %></p>
 
-          <% if @course.documents.attached? %>
-              <% @course.documents.each do |document| %>
-                <p>Download File: <%= link_to document.filename, rails_blob_path(document) %></p>
-              <%end%>
-          <% else %>
-            <p>No file attached.</p>
-          <% end %>
+            <% if @course.documents.attached? %>
+                <% @course.documents.each do |document| %>
+                    <p>Download File: <%= link_to document.filename, rails_blob_path(document) %></p>
+                <%end%>
+            <% else %>
+                <p>No file attached.</p>
+            <% end %>
 
-          <% if @course.lectures.any? %>
-              <% @course.lectures.each do |lecture|%>
-                 <% if lecture.video.attached? %>
-                      <p>Download Video: <%= link_to lecture.video.filename, rails_blob_path(lecture.video,disposition: 'attachment') %></p>
-                  <%end%>
-             <%end%> 
-         <%end%>
+            <% if @course.lectures.any? %>
+               <% @course.lectures.each do |lecture|%>
+                   <% if lecture.video.attached? %>
+                        <p>Download Video: <%= link_to lecture.video.filename, rails_blob_path(lecture.video,disposition: 'attachment') %></p>
+                   <%end%>
+               <%end%> 
+            <%end%>
                            
-          <% if current_user && current_user.role=='Student' %>
-              <% if @course.enrollments.where("user_id = ?",current_user.id)%>
-                  <p>You are already enrolled in this course since <%= @course.enrollments.find_by(user_id: current_user.id).enrollment_date.strftime("%Y-%m-%d") %>.</p>
-              <% else %>
-                  <%= link_to 'Enroll in this course', enroll_course_path(@course), method: :post %>
-              <% end %>
-          <% end %>
+            <% if current_user && current_user.role=='Student' %>
+                <% if @course.enrollments.where("user_id = ?",current_user.id)%>
+                    <p>You are already enrolled in this course since <%= @course.enrollments.find_by(user_id: current_user.id).enrollment_date.strftime("%Y-%m-%d") %>.</p>
+               <% else %>
+                    <%= link_to 'Enroll in this course', enroll_course_path(@course), method: :post %>
+               <% end %>
+           <% end %>
  
-          <a href="#" class="btn btn-primary">View Course</a>
-          <%= link_to 'Back', courses_path, class: "btn btn-secondary" %>
+            <a href="#" class="btn btn-primary">View Course</a>
+            <%= link_to 'Back', courses_path, class: "btn btn-secondary" %>
         </div>
       </div>
     </div>

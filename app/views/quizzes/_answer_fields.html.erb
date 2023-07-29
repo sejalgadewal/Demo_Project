@@ -1,8 +1,0 @@
-<%= form.fields_for :answers, answer do |answer_fields| %>
-  <%= answer_fields.label :content, "Answer" %>
-  <%= answer_fields.text_field :content %>
-  <%= answer_fields.check_box :correct %>
-  <%= answer_fields.label :correct, "Correct" %>
-  <%= answer_fields.check_box :_destroy %>
-  <%= answer_fields.label :_destroy, "Remove" %>
-<% end %>

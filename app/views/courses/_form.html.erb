@@ -2,46 +2,24 @@
 <%= f.error_notification %>
 
 <div class="field">
-  <div class="control">
-    <%= f.input :title, label: " Course Title",input_html: {class: "textarea"}, wrapper: false, label_html: {class: "label"}, placeholder: "Add title of course......", autofocus: true %>
-  </div>
+    <div class="control">
+        <%= f.input :title, label: " Course Title",input_html: {class: "textarea"}, wrapper: false, label_html: {class: "label"}, placeholder: "Add title of course......", autofocus: true %>
+    </div>
 </div>
 
 <div class="field">
-  <div class="control">
-    <%= f.input :description, label: " Course Description",input_html: {class: "textarea"}, wrapper: false, label_html: {class: "label"}, placeholder: "About desciption of course......", autofocus: true %>
-  </div>
+    <div class="control">
+        <%= f.input :description, label: " Course Description",input_html: {class: "textarea"}, wrapper: false, label_html: {class: "label"}, placeholder: "About desciption of course......", autofocus: true %>
+    </div>
 </div>
 
 
- <div class="field">
-  <div class="control">
-  <%= f.label :Upload_File%>
- 
-    <%= f.file_field :documents, multiple: true, accept: 'application/pdf' %>
-   
+<div class="field">
+    <div class="control">
+        <%= f.label :Upload_File%>
+        <%= f.file_field :documents, multiple: true, accept: 'application/pdf' %>
   </div>
 </div>
  
-<%
-=begin%>
- <div class="field">
-  <div class="control">
-  <%= f.label :Upload_File%>
-  <%#= f.file_field :course_files, multiple: true, accept: 'application/pdf' %>
- <%= f.fields_for :course_files do |file_fields| %>
-    <%#= file_fields.label :name, "File Name" %>
-    <%= file_fields.file_field :attachment, multiple: true %>
-  <% end %>
-  <%#= f.link_to_add "Add another file", :course_files %>
-  </div>
-</div> 
-<%
-=end%>
-
-
-
-
-
 <%= f.button :submit, class: "button is-info" %>
 <%end%>

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
@@ -18,7 +16,6 @@ class Ability
       can :read, Quiz
       can :read, Question
       can :read, Room
-      
     else
       can :read, Course
       can :read, Lecture

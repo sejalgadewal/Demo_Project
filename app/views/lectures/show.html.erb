@@ -1,30 +1,13 @@
-
 <%= notice %>
-
-
-<!-- 
-<%# @lecture.each do |lecture|%>
-
-<%# if lecture.video.attached? %>
-            <p>Download File: <%#= link_to lecture.video.filename, rails_blob_path(lecture.video,disposition: 'attachment') %></p>
-       
-<%# end %>
-
-<%#end%>
- -->
-
-
- <% if @quiz.present? %>
-  <h2> Quiz: <%= @quiz.title %></h2>
-  <% @quiz.questions.each do |question| %>
-    <p><strong>Question:</strong> <%= question.content %></p>
-    <%#= link_to 'Update Question',  %></p>
-       
-  <% end %>
+<% if @quiz.present? %>
+    <h2> Quiz: <%= @quiz.title %></h2>
+    <% @quiz.questions.each do |question| %>
+        <p><strong>Question:</strong> <%= question.content %></p>
+    <% end %>
 <% else %>
-  <p>No quiz available for this lecture.</p>
+    <p>No quiz available for this lecture.</p>
 <% end %>
 
 <div class="content" style="display: inline-block; margin-left: 10px;">
     <%= link_to "Back to Lectures", course_lectures_path(@course), class: 'btn btn-secondary' %>
-  </div> 
+</div> 

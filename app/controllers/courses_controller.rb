@@ -8,6 +8,7 @@ class CoursesController < ApplicationController
       render partial: 'instructorprofile'
     elsif current_user.role == "Student"
       @user=User.where(role: "Instructor")
+      # render 'studentprofile', user: @user
     end
 
   end
@@ -54,7 +55,8 @@ class CoursesController < ApplicationController
   end
 
   def mycourse
-    @courses = current_user.courses
+    @courses = current_user.courses.paginate(page: params[:page], per_page: 5)
+    #@courses = current_user.courses
     @lectures=current_user.lectures
   end
  
