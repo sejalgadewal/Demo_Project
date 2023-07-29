@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     get 'lectures/mylecture'
     get 'quizzes/myquiz'
 
-    root "homes#index"
+    root "courses#index"
     resources :enrollments, only: [:index]
 
     resources :courses do
