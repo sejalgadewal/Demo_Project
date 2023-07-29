@@ -1,4 +1,7 @@
-<%#= render 'instructor_profile'%>
-
-<%= render 'studentprofile', user: @user %>
-
+<% if user_signed_in? %>
+    <% if current_user.role == "Instructor" %>
+        <%= render 'instructorprofile' %>
+    <% elsif current_user.role == "Student" %>
+        <%= render partial: 'studentprofile', user: @user %>
+    <%end%>
+<%end%>

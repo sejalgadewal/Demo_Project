@@ -1,6 +1,4 @@
-
- <% @all_students = User.where(role: :Student) %>
-
+<% @all_students = User.where(role: :Student) %>
 <% @all_students.each do |s| %>
     <div> <%= s.name %> </div>
 <%end%> 

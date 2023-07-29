@@ -3,14 +3,7 @@ class CoursesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   def index
     @courses=Course.all
-   
-    if current_user.role == "Instructor"
-      render partial: 'instructorprofile'
-    elsif current_user.role == "Student"
-      @user=User.where(role: "Instructor")
-      # render 'studentprofile', user: @user
-    end
-
+    @user=User.where(role: "Instructor")
   end
 
   def new

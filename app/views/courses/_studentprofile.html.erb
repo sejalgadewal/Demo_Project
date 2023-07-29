@@ -50,7 +50,7 @@
   <div class="panel">
     <h1>Courses Available</h1>
     
-    <% user.find_each do |u| %>
+    <%@user.find_each do |u| %>
       <% if u.courses.exists? %>
         <div class="user-course-container">
           <center><strong>Created By: <%= u.name %></strong></center>
