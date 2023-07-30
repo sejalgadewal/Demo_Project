@@ -3,6 +3,7 @@ class EnrollmentsController < ApplicationController
 
   def index
     @enrollments =current_user.enrollments
+    @courses=Course.joins(:enrollments).where("enrollments.user_id = ?",current_user.id)
   end
 
   def new
