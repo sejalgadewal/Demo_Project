@@ -1,9 +1,13 @@
 class Course < ApplicationRecord
-  belongs_to :user
-  has_many :enrollments, dependent: :destroy
-  has_many :lectures, dependent: :destroy
-  has_many_attached :documents, dependent: :destroy
+    belongs_to :user
+    has_many :enrollments, dependent: :destroy
+    has_many :lectures, dependent: :destroy
+    has_many_attached :documents, dependent: :destroy
 
+    validates :title, presence: true
+    validates :description, presence: true, length: { minimum: 100}
+    validates :documents, presence: true
+   
   #private
 
   #  def check_file_type
