@@ -60,6 +60,10 @@
                 <div class="content" style="display: inline-block; margin-left: 150px;">
                     <%= button_to "Destroy course", course, method: :delete, data: { confirm: 'Are you sure?', class: 'btn btn-danger' %> 
                 </div>
+
+                <div class="content" style="display: inline-block; margin-left: 150px;">
+                    <p> "Enrolled Student : -" <%= total_enrolled_students(course) %> </p> 
+                </div>
                 </div>
             </article>
         </div>
