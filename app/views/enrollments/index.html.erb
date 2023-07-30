@@ -1,4 +1,6 @@
-<% if @enrollments.any? %>
+<%# if @enrollments.any? %>
+<% if enrolled?(current_user.id) %>
+  
   <% @courses.each do |enrollment| %>
     <div class="course-box" style="background-color: #f0f0f0; padding: 20px; margin: 10px;">
 

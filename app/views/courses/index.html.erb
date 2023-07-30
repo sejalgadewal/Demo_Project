@@ -1,5 +1,6 @@
 <% if user_signed_in? %>
     <% if current_user.role == "Instructor" %>
+    <%# if User.by_role("Instructor") %>
         <%= render 'instructorprofile' %>
     <% elsif current_user.role == "Student" %>
         <%= render partial: 'studentprofile', user: @user %>

@@ -11,6 +11,7 @@ class User < ApplicationRecord
     validates_uniqueness_of :name
     scope :all_except, ->(user) { where.not(id: user) }
     after_create_commit { broadcast_append_to "users" }
+    scope :by_role, -> (role) { where(role: role) }
 
     validates :name, presence: true
     validates :username, presence: true, uniqueness: true
