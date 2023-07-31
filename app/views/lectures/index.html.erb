@@ -1,8 +1,8 @@
 <%= notice %>
 <% @lectures.each do |lecture|%>
-    <% if lecture.video.attached? %>
-        <p>Download File: <%= link_to lecture.video.filename, rails_blob_path(lecture.video,disposition: 'attachment') %></p>
-    <% end %>
+  <% if lecture.video.attached? %>
+    <p>Download File: <%= link_to lecture.video.filename, rails_blob_path(lecture.video,disposition: 'attachment') %></p>
+  <% end %>
 <%end%>
 
 <%= link_to 'Back to Course', courses_mycourse_path %>  <br><br>

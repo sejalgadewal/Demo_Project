@@ -1,11 +1,11 @@
 <h1>Add New Lecture</h1>
 
 <%= form_with(model: [@course, @lecture], local: true) do |form| %>
-    <%= form.label :video %>
-    <%= form.file_field :video,  disposition: 'attachment' %>
-    <% @lecture.errors.full_messages_for(:video).each do |message| %>
-        <p class="text-danger"><%= message %></p>
-    <% end %>
+  <%= form.label :video %>
+  <%= form.file_field :video,  disposition: 'attachment' %>
+  <% @lecture.errors.full_messages_for(:video).each do |message| %>
+    <p class="text-danger"><%= message %></p>
+  <% end %>
 
 <%= form.submit 'Create Lecture' %>
 <% end %>

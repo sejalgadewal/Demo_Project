@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to courses_path, alert: 'Access denied.'
   end
+
   def after_sign_in_path_for(resource)
     if resource.is_a?(User)
     	if resource.role == 'Instructor'
@@ -13,4 +14,5 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+  
 end
