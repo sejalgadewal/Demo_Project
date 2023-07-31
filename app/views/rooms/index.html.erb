@@ -16,7 +16,7 @@
     <div id="chatroom_container" class="row, bg-dark text-light">
         <div id="side_panel" class="col-md-4 col-sm-4">
             <h5> <%= @current_user.name %> </h5>
-            <h4> Students </h4>
+            
             <div>
                 <%= turbo_stream_from "users" %>
                 <div id="users">

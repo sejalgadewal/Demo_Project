@@ -1,4 +1,14 @@
-<% @all_students = User.where(role: :Student) %>
-<% @all_students.each do |s| %>
-    <div> <%= s.name %> </div>
-<%end%> 
+<% if current_user.role == "Instructor" %>
+    <h4> Students </h4>
+    <% @all_students = User.where(role: :Student) %>
+    <% @all_students.each do |s| %>
+        <div> <%= s.name %> </div>
+    <%end%> 
+<% else %>
+    <h4>Instructors</h4>
+    <% @all_instructors = User.where(role: :Instructor) %>
+    <% @all_instructors.each do |i| %>
+        <div> <%= i.name %> </div>
+    <%end%> 
+<%end%>
+
