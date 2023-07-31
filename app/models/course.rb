@@ -7,6 +7,9 @@ class Course < ApplicationRecord
     validates :title, presence: true
     validates :description, presence: true, length: { minimum: 100}
     validates :documents, presence: true
+
+    scope :enrolled_by_student, -> (student_id) { joins(:enrollments).where(enrollments: {user_id: student_id} ) }
+
    
   #private
 
