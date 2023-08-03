@@ -27,6 +27,8 @@
                     <p>You are already enrolled in this course since <%= @course.enrollments.find_by(user_id: current_user.id).enrollment_date.strftime("%Y-%m-%d") %>.</p>
                <% else %>
                     <%= link_to 'Enroll in this course', enroll_course_path(@course), method: :post %>
+                    <%#= link_to 'Enroll in this course', course_payment_enroll_in_course_path(@course), method: :post %>
+                    
                <% end %>
            <% end %>
  

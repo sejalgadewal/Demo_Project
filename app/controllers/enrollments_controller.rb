@@ -14,13 +14,19 @@ class EnrollmentsController < ApplicationController
 
     def create
         @course = Course.find(params[:course_id])
+        #byebug
         #if Enrollment.pluck(:course_id).include?(@course.id) && Enrollment.pluck(:user_id).include?(current_user.id)
         @enrollment = current_user.enrollments.build(course: @course, enrollment_date: Date.today)
         if @enrollment.save
-            redirect_to @course, notice: 'Successfully enrolled in the course.'
-        
+             #redirect_to @course, notice: 'Successfully enrolled in the course.'
+            #redirect_to new_course_payment_path(@course) #, notice: 'Successfully enrolled in the course.'
+            redirect_to payment_page_path(course_id: @course.id) , notice: 'Successfully enrolled in the course.'
+            
+
         else
-            redirect_to course_path(@course), alert: 'You are already enrolled in this course .'
+            #redirect_to course_path(@course), alert: 'You are already enrolled in this course .'
+            flash[:error] = 'Failed to enroll '
+            render :new
         end
     end
 

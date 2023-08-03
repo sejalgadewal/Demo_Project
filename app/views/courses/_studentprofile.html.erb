@@ -54,7 +54,7 @@
       <% if u.courses.exists? %>
         <div class="user-course-container">
           <center><strong>Created By: <%= u.name %></strong></center>
-          <% u.courses.pluck(:title, :description, :id).each do |title, description, id| %>
+          <% u.courses.pluck(:title, :description, :id, :price).each do |title, description, id, price| %>
             <article class="media">
               <div class="media-left">
                 <figure class="image is-64x64">
@@ -65,10 +65,15 @@
                 <div class="content">
                   <div class="course-title"><%= title %></div>
                   <div class="course-description"><%= description %></div>
+                  <div class="course-price"><%= price %></div>
+                  
                   <% if current_user && current_user.role == 'Student?' && current_user.enrollments.where(course_id: id).exists? %>
                     <a href="#" class="enroll-button">View Course</a>
                   <% else %>
                     <%= link_to 'Enroll', course_enroll_path(id), class: 'enroll-button' %>
+                    <%#= link_to 'Enroll in this course', new_course_payment_path(id) %>
+                    <%#= button_to 'Enroll in this course', course_checkouts_create_path(id), method: :post%>
+                    
                   <% end %>
                 </div>
               </div>

@@ -26,6 +26,8 @@
                     <h2>Courses:</h2><br>
                     <p>Course title: <%= course.title %></p> 
                     <p>Course Description: <%= course.description %></p>
+                    <p>Course Price: <%= course.price %></p>
+                    
                     <% if course.documents.attached? %>
                         <% course.documents.each do |document| %>
                             <p>Download File: <%= link_to document.filename, rails_blob_path(document) %></p>

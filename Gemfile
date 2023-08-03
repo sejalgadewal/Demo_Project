@@ -19,8 +19,7 @@ gem "sqlite3", "~> 1.4"
 gem "puma", "~> 5.0"
 gem 'cancancan'
 gem 'will_paginate'
-
-
+gem 'stripe', '~> 8.6'
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 gem 'bulma-rails', '~> 0.9.4'
