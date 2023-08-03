@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     get 'courses/mycourse'
     get 'lectures/mylecture'
     get 'quizzes/myquiz'
+    get 'quizzes/myquiz'
+    
 
     root "courses#index"
     resources :enrollments, only: [:index]

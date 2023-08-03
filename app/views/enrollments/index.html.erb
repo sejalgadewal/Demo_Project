@@ -1,40 +1,45 @@
 <% if enrolled?(current_user.id) %>
- <% @courses.each do |enrollment| %>
- <div class="course-box" style="background-color: #f0f0f0; padding: 20px; margin: 10px;">
- <h1 class="card-title">Course Title: <%= enrollment.title %></h1>
-<p><strong class="card-text">Description:</strong> <%= enrollment.description %></p>
+  <% @courses.each do |enrollment| %>
+    <div class="course-box" style="background-color: #f0f0f0; padding: 20px; margin: 10px;">
+      <h1 class="card-title">Course Title: <%= enrollment.title %></h1>
+      <p><strong class="card-text">Description:</strong> <%= enrollment.description %></p>
 
-<% if enrollment.documents.attached? %>
- <p><strong>Download Documents:</strong></p>
- <ul>
- <% enrollment.documents.each do |document| %>
- <li><%= link_to document.filename, rails_blob_path(document) %></li>
- <% end %>
- </ul>
- <% end %>
+      <% if enrollment.documents.attached? %>
+        <p><strong>Download Documents:</strong></p>
+        <ul>
+        <% enrollment.documents.each do |document| %>
+          <li><%= link_to document.filename, rails_blob_path(document) %></li>  
+        <% end %>
+        </ul>
+      <% end %>
 
- <% if enrollment.lectures.any? %>
-<strong>Lectures:</strong>
- <div class="lecture-list">
- <% enrollment.lectures.each do |lecture| %>
- <div class="lecture-box" style="background-color: #f9f9f9; padding: 10px; margin: 10px;">
- <h3><%#= lecture.title %></h3>
- <% if lecture.video.attached? %>
- <p><strong>Lecture Video:</strong> <%= link_to lecture.video.filename, rails_blob_path(lecture.video, disposition: 'attachment') %></p>
- <% end %>
- <% if lecture.quiz.present? %>
- <div class="quiz-link">
- <%= link_to 'Start Quiz', showquiz_path(lecture), class: "btn btn-secondary" %>
- </div>
- <% end %>
- </div>
- <% end %>
-</div>
- <% end %>
- </div>
- <% end %>
+      <% if enrollment.lectures.any? %>
+        <strong>Lectures:</strong>
+        <div class="lecture-list">
+          <% enrollment.lectures.each do |lecture| %>
+            <div class="lecture-box" style="background-color: #f9f9f9; padding: 10px; margin: 10px;">
+            <h3><%#= lecture.title %></h3>
+            <% if lecture.video.attached? %>
+              <p><strong>Lecture Video:</strong> <%= link_to lecture.video.filename, rails_blob_path(lecture.video, disposition: 'attachment') %></p>
+            <% end %>
+            <% if lecture.quiz.present? %>
+              <div class="quiz-link">
+              <% if current_user.quiz_attempted?(lecture.quiz) %>
+                <p>You have attempted the quiz for this lecture.</p>
+              <%else%>
+                <%= link_to 'Start Quiz', showquiz_path(lecture), class: "btn btn-secondary", notice: 'Quiz Submitted successfully!!!!!!' %>
+                <% current_user.mark_quiz_attempted(lecture.quiz) %>
+              <%end%>
+              </div>
+            <% end %> 
+            </div>
+          <% end %>
+        </div>    
+      <% end %>
+    </div>
+  <% end %>
 <% else %>
- <p>No enrollments for this course yet.</p>
+  <p>No enrollments for this course yet.</p>
 <% end %>
 
 <br>

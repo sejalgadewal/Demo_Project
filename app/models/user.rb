@@ -18,5 +18,16 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :username, presence: true, uniqueness: true
+
+  serialize :attempted_quizzes, Array
+
+  def quiz_attempted?(quiz)
+    attempted_quizzes.include?(quiz.id)
+  end
+
+  def mark_quiz_attempted(quiz)
+    attempted_quizzes << quiz.id
+    save
+  end
 end
 

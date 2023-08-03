@@ -4,6 +4,8 @@ class QuestionsController < ApplicationController
     @questions = @quiz.questions 
     @lecture=@quiz.lecture
     @course=@lecture.course
+    #authorize! :manage, @question
+
   end
 
   def destroy
@@ -20,10 +22,14 @@ class QuestionsController < ApplicationController
   end
 
   def create
+    @lecture=@quiz.lecture
+    @course=@lecture.course
     @question=@quiz.questions.create(question_params)
     authorize! :manage, @question
     if @question.save
-      redirect_to quiz_questions_path(@quiz), notice: 'Question Successfully created'
+      #redirect_to quiz_questions_path(@quiz), notice: 'Question Successfully created'
+      redirect_to course_lecture_myquiz_path(@course,@lecture), notice: 'Question Successfully created'
+      
     else
       render :new
     end

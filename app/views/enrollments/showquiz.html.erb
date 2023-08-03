@@ -1,3 +1,4 @@
+<%= notice%>
 <h2>Quiz Topic: <%= @lecture.quiz.title %></h2>
 <%= form_tag quiz_questions_path(@lecture.quiz), method: :get, id: "quiz-form", class: "quiz-form" do %>
 <% @lecture.quiz.questions.each do |question| %>
