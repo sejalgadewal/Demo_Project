@@ -24,6 +24,7 @@ class CoursesController < ApplicationController
     end 
     
    
+
   end
 
   def edit
