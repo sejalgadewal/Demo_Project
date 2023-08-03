@@ -15,13 +15,15 @@ class CoursesController < ApplicationController
     authorize! :manage, @course
     if @course.save
       redirect_to courses_mycourse_path, notice: "Course was successfully created." 
+      students = User.where(role: "Student")
+      students.each do |student|
+      CourseMailer.send_lecture_email(student, @course).deliver_now
+      end
     else
       render :new, status: :unprocessable_entity 
     end 
-    students = User.where(role: "Student")
-    students.each do |student|
-      CourseMailer.send_lecture_email(student, @course).deliver_now
-    end
+    
+   
   end
 
   def edit

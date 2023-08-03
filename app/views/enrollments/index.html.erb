@@ -1,3 +1,7 @@
+<br>
+<%= link_to 'Back', courses_path, class: "btn btn-secondary" %>
+
+
 <% if enrolled?(current_user.id) %>
   <% @courses.each do |enrollment| %>
     <div class="course-box" style="background-color: #f0f0f0; padding: 20px; margin: 10px;">
@@ -42,6 +46,4 @@
   <p>No enrollments for this course yet.</p>
 <% end %>
 
-<br>
-<%= link_to 'Back', courses_path, class: "btn btn-secondary" %>
 
