@@ -10,7 +10,6 @@ class Course < ApplicationRecord
 
   scope :enrolled_by_student, -> (student_id) { joins(:enrollments).where(enrollments: {user_id: student_id} ) }
 
-   
   #private
 
   #  def check_file_type

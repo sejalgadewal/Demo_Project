@@ -5,6 +5,8 @@ class User < ApplicationRecord
     :recoverable, :rememberable, :validatable
 
   enum role: {Instructor: 0, Student: 1}
+
+
   has_many :enrollments, dependent: :destroy
   has_many :courses, dependent: :destroy
   has_many :lectures, dependent: :destroy
@@ -16,8 +18,13 @@ class User < ApplicationRecord
   
   scope :by_role, -> (role) { where(role: role) }
 
+
+
   validates :name, presence: true
-  validates :username, presence: true, uniqueness: true
+ # validates :username, presence: true, uniqueness: true 
+  validates :username, presence: true #, uniqueness: { case_sensitive: false }
+  
+  #validates :email, presence: true, uniqueness: true
 
   serialize :attempted_quizzes, Array
 
