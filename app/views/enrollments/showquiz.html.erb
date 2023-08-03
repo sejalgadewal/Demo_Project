@@ -1,0 +1,29 @@
+<h2>Quiz Topic: <%= @lecture.quiz.title %></h2>
+<%= form_tag quiz_questions_path(@lecture.quiz), method: :get, id: "quiz-form", class: "quiz-form" do %>
+<% @lecture.quiz.questions.each do |question| %>
+<div style="background-color: #fff; border: 1px solid #ccc; padding: 10px; margin: 10px;">
+<p><strong>Question: <%= question.content %></strong></p>
+<%= hidden_field_tag 'questions[]', question.id %>
+<p><label><%= radio_button_tag "#{question.id}", question.answer1 %>(a) <%= question.answer1 %></label></p>
+<p><label><%= radio_button_tag "#{question.id}", question.answer2 %>(b) <%= question.answer2 %></label></p> 
+<p><label><%= radio_button_tag "#{question.id}", question.answer3 %>(c) <%= question.answer3 %></label></p>
+<p><label><%= radio_button_tag "#{question.id}", question.answer4 %>(d) <%= question.answer4 %></label></p>
+</div>
+<% end %>
+<%= submit_tag 'Submit Answers', class: 'btn btn-primary', id: 'submit-button', enable: true %>
+<%end%>
+
+<div id="error-message" style="color: red; margin: 10px; display: none;">
+Please select an answer for all questions before submitting the quiz.
+</div>
+
+<script>
+document.getElementById('submit-button').addEventListener('click', function(event) {
+const selectedAnswers = document.querySelectorAll('input[type="radio"]:checked');
+const totalQuestions = <%= @lecture.quiz.questions.count %>;
+ 
+if (selectedAnswers.length < totalQuestions) {
+event.preventDefault(); // Prevent form submission
+document.getElementById('error-message').style.display = 'block'; }
+});
+</script>

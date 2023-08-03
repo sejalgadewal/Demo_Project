@@ -27,6 +27,10 @@ class EnrollmentsController < ApplicationController
     @enrollment=Enrollment.find(params[:id])  
   end
 
+  def showquiz
+    @lecture = Lecture.find(params[:lecture_id])
+  end
+
   private
 
   def enroll_params

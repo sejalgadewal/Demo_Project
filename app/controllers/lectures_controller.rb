@@ -15,7 +15,7 @@ class LecturesController < ApplicationController
     @lecture.user = current_user
     if @lecture.save
       # redirect_to course_lectures_path(@course), notice: 'Lecture was successfully created .'
-      redirect_to course_mylecture_path, notice: "Lecture was successfully updated."
+      redirect_to course_mylecture_path, notice: "Lecture was successfully created."
     else
       render :new
     end

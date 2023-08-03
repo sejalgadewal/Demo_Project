@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
     root "courses#index"
     resources :enrollments, only: [:index]
+    get 'enrollments/showquiz/:lecture_id', to: 'enrollments#showquiz', as: :showquiz
+
 
     resources :courses do
         get 'enroll', to: 'enrollments#create'
