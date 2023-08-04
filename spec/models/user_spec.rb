@@ -71,8 +71,6 @@ RSpec.describe User, type: :model do
           
           students = []
           students << User.create!(name: "Student Name", username: "student@example.com", role: :Student, email: "stu@gmail.com", password: "password")
-          
-          # Expectations here
           expect(User.by_role(:Instructor)).to match_array(instructors)
           expect(User.by_role(:Student)).to match_array(students)
           

@@ -5,5 +5,4 @@ class Enrollment < ApplicationRecord
   validates :user_id, uniqueness: { scope: :course_id, message: "has already enrolled in this course" }
   
   default_scope { order(enrollment_date: :asc) }
-    
 end

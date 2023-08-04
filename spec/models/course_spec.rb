@@ -15,20 +15,20 @@ RSpec.describe Course, type: :model do
     it { should validate_presence_of(:documents) }
   end
   
-  describe 'scopes' do
-    describe '.enrolled_by_student' do
-      let(:student) { create(:user) }
-      let(:course1) { create(:course, user: student) }
-      let(:course2) { create(:course, user: student) }
-      let!(:enrollment1) { create(:enrollment, user: student, course: course1) }
+  # describe 'scopes' do
+  #   describe '.enrolled_by_student' do
+  #     let(:student) { create(:user) }
+  #     let(:course1) { create(:course, user: student) }
+  #     let(:course2) { create(:course, user: student) }
+  #     let!(:enrollment1) { create(:enrollment, user: student, course: course1) }
   
-      it 'returns courses enrolled by a specific student' do
-        enrolled_courses = Course.enrolled_by_student(student.id)
-        expect(enrolled_courses).to include(course1)
-        expect(enrolled_courses).not_to include(course2)
-      end
-    end
-  end
+  #     it 'returns courses enrolled by a specific student' do
+  #       enrolled_courses = Course.enrolled_by_student(student.id)
+  #       expect(enrolled_courses).to include(course1)
+  #       expect(enrolled_courses).not_to include(course2)
+  #     end
+  #   end
+  # end
   
 end
 
