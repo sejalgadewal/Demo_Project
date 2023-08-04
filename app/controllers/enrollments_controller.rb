@@ -2,9 +2,9 @@ class EnrollmentsController < ApplicationController
   before_action :authenticate_user!, only: [:create]
 
   def index
-      @enrollments =current_user.enrollments
-      @courses = Course.enrolled_by_student(current_user.id)
-      #@courses=Course.joins(:enrollments).where("enrollments.user_id = ?",current_user.id)
+    @enrollments =current_user.enrollments
+    @courses = Course.enrolled_by_student(current_user.id)
+    #@courses=Course.joins(:enrollments).where("enrollments.user_id = ?",current_user.id)
   end
 
   def new

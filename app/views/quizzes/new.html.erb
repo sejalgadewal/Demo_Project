@@ -1,20 +1,20 @@
 <div style="background-color: #f0f0f0; padding: 20px; text-align: center;">
-    <h1>Create New Quiz</h1>
+  <h1>Create New Quiz</h1>
 
-    <div style="background-color: #fff; padding: 20px; display: inline-block;">
-        <%= form_with(model: [@course, @lecture, @quiz], local: true) do |form| %>
-        <div style="margin-bottom: 10px;">
-            <%= form.label :title %><br>
-            <%= form.text_field :title %>
-            <% @quiz.errors.full_messages_for(:title).each do |message| %>
-                <p class="text-danger"><%= message %></p>
-            <% end %>
-        </div>
-        <%= form.submit 'Create Quiz', style: "background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" %>
-        <% end %>
+  <div style="background-color: #fff; padding: 20px; display: inline-block;">
+    <%= form_with(model: [@course, @lecture, @quiz], local: true) do |form| %>
+    <div style="margin-bottom: 10px;">
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
+      <% @quiz.errors.full_messages_for(:title).each do |message| %>
+        <p class="text-danger"><%= message %></p>
+      <% end %>
+    </div>
+    <%= form.submit 'Create Quiz', style: "background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" %>
+    <% end %>
   </div>
 </div>
 
 <div style="text-align: center; margin-top: 10px;">
-    <%= link_to 'Back to Lecture', course_mylecture_path(@course, @lecture), style: "display: inline-block; background-color: #337ab7; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;" %>
+  <%= link_to 'Back to Lecture', course_mylecture_path(@course, @lecture), style: "display: inline-block; background-color: #337ab7; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;" %>
 </div>

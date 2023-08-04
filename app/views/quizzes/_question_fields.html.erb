@@ -1,14 +1,13 @@
 <div class="question">
-    <%= form.fields_for :questions, question do |question_fields| %>
-        <%= question_fields.label :content, "Question" %>
-        <%= question_fields.text_area :content %>
-        <br>
-        <% 1.upto(4) do |i| %>
-            <%= question_fields.label "answer#{i}", "Answer #{i}" %>
-            <%= question_fields.text_field "answer#{i}", class: "form-control mb-3" %> <br>
-        <% end %> 
-
-        <%= question_fields.label :correct, "Correct Answer" %>
-        <%= question_fields.select :correct, (1..4).to_a, {}, class: "form-control mb-3" %>
+  <%= form.fields_for :questions, question do |question_fields| %>
+    <%= question_fields.label :content, "Question" %>
+    <%= question_fields.text_area :content %>
+    <br>
+    <% 1.upto(4) do |i| %>
+      <%= question_fields.label "answer#{i}", "Answer #{i}" %>
+      <%= question_fields.text_field "answer#{i}", class: "form-control mb-3" %> <br>
+    <% end %> 
+    <%= question_fields.label :correct, "Correct Answer" %>
+    <%= question_fields.select :correct, (1..4).to_a, {}, class: "form-control mb-3" %>
   <% end %>
 </div>
