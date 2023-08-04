@@ -10,6 +10,10 @@ module DemoProject
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+    config.generators.after_generate do |files|
+      parsable_files = files.filter { |file| file.end_with?('.rb') }
+      system("bundle exec rubocop -A --fail-level=E #{parsable_files.shelljoin}", exception: true)
+    end
     # config.middleware.insert_before ActionDispatch::Static, Rack::MethodOverride
     # config.middleware.insert_after Rack::MethodOverride, Warden::Manager
    
