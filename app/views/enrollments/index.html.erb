@@ -32,7 +32,7 @@
                 <p>You have attempted the quiz for this lecture.</p>
               <%else%>
                 <%= link_to 'Start Quiz', showquiz_path(lecture), class: "btn btn-secondary", notice: 'Quiz Submitted successfully!!!!!!' %>
-                <% current_user.mark_quiz_attempted(lecture.quiz) %>
+                <%# current_user.mark_quiz_attempted(lecture.quiz) %>
               <%end%>
               </div>
             <% end %> 
@@ -45,5 +45,3 @@
 <% else %>
   <p>No enrollments for this course yet.</p>
 <% end %>
-
-

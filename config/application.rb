@@ -10,7 +10,9 @@ module DemoProject
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
-
+    # config.middleware.insert_before ActionDispatch::Static, Rack::MethodOverride
+    # config.middleware.insert_after Rack::MethodOverride, Warden::Manager
+   
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

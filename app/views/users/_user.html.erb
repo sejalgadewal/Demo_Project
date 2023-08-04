@@ -1,4 +1,6 @@
-<% if current_user.role == "Instructor" %>
+<%
+=begin%>
+ <% if current_user.role == "Instructor" %>
     <h4> Students </h4>
     <% @all_students = User.where(role: :Student) %>
     <% @all_students.each do |s| %>
@@ -11,4 +13,6 @@
         <div> <%= i.name %> </div>
     <%end%> 
 <%end%>
-
+ 
+<%
+=end%>
