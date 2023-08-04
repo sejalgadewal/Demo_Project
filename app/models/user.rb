@@ -5,19 +5,20 @@ class User < ApplicationRecord
     :recoverable, :rememberable, :validatable
 
   enum role: {Instructor: 0, Student: 1}
+
+
   has_many :enrollments, dependent: :destroy
   has_many :courses, dependent: :destroy
   has_many :lectures, dependent: :destroy
   has_many :messages, dependent: :destroy
 
-  #validates_uniqueness_of :name
   scope :all_except, ->(user) { where.not(id: user) }
   after_create_commit { broadcast_append_to "users" }
   
   scope :by_role, -> (role) { where(role: role) }
 
   validates :name, presence: true
-  validates :username, presence: true, uniqueness: true
+  validates :username, presence: true 
 
   serialize :attempted_quizzes, Array
 

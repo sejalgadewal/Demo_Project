@@ -3,14 +3,12 @@
 
   <% @questions.each do |q| %>
     <div class="question-box" style="display: inline-block; margin-left: 10px; border: 1px solid black; padding: 10px;">
-
     <h6> Question :- <%= q.content %><br></h6>
     <h6>Option 1 :- <%= q.answer1 %><br><h6>
     <h6>Option 2 :- <%= q.answer2 %><br><h6>
     <h6>Option 3 :- <%= q.answer3 %><br><h6>
     <h6>Option 4 :- <%= q.answer4 %><br><h6>
     <h6>Correct_Answer :- <%= q.correct %><br><h6>
-  
     </div>    
   <% end %>
   <br> <br>

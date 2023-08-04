@@ -1,16 +1,16 @@
 <h1>Update Quiz</h1>
 
 <%= form_with(model: [@course, @lecture, @quiz], local: true) do |form| %>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <%= form.label :title %>
+  <%= form.text_field :title %>
     
-    <%= form.fields_for :questions do |question_form| %>
-        <%= render 'question_fields', f: question_form %>
-    <% end %>
+  <%= form.fields_for :questions do |question_form| %>
+    <%= render 'question_fields', f: question_form %>
+  <% end %>
 
-    <div class="links">
-        <%= link_to_add_association 'Add Question', form, :questions, class: 'btn btn-primary' %>
-    </div>
+  <div class="links">
+    <%= link_to_add_association 'Add Question', form, :questions, class: 'btn btn-primary' %>
+  </div>
 <%= form.submit 'Update Quiz' %>
 <% end %>
 
