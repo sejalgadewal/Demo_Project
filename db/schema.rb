@@ -67,7 +67,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_03_062739) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "fileupload"
-    t.integer "price"
     t.index ["user_id"], name: "index_courses_on_user_id"
   end
 
@@ -77,9 +76,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_03_062739) do
     t.integer "user_id"
     t.integer "course_id"
     t.date "enrollment_date"
-    t.integer "status"
-    t.integer "price"
-    t.string "payment_status", default: "unpaid"
     t.index ["course_id"], name: "index_enrollments_on_course_id"
     t.index ["user_id"], name: "index_enrollments_on_user_id"
   end
@@ -101,16 +97,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_03_062739) do
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_messages_on_room_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
-  end
-
-  create_table "payments", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "course_id"
-    t.integer "cardNumber"
-    t.integer "expiryDate"
-    t.integer "cvv"
-    t.index ["course_id"], name: "index_payments_on_course_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -174,7 +160,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_03_062739) do
   add_foreign_key "lectures", "users"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
-  add_foreign_key "payments", "courses"
   add_foreign_key "questions", "quizzes"
   add_foreign_key "quizzes", "lectures"
 end

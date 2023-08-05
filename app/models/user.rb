@@ -13,15 +13,16 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
 
   scope :all_except, ->(user) { where.not(id: user) }
-  after_create_commit { broadcast_append_to "users" }
+  #after_create_commit { broadcast_append_to "users" }
   
   scope :by_role, -> (role) { where(role: role) }
 
   validates :name, presence: true
   validates :username, presence: true 
 
-  serialize :attempted_quizzes, Array
 
+  serialize :attempted_quizzes, Array
+    
   def quiz_attempted?(quiz)
     attempted_quizzes.include?(quiz.id)
   end
