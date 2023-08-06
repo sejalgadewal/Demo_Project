@@ -30,6 +30,20 @@ Rails.application.routes.draw do
     resources :quizzes, only: [:new,:create,:show,:edit,:update,:destroy] do
         resources :questions, only: [:new, :index, :create,:show,:edit,:update,:destroy]
     end
+
     devise_for :users, :controllers => {registrations: 'registrations'}
- 
+  
+    namespace :api do
+    namespace :v1 do
+      resources :courses do
+        resources :enrollments
+        resources :lectures do 
+            resources :quizzes do
+                resources :questions
+            end
+      end
+      end
+    end
+    end
+
 end
