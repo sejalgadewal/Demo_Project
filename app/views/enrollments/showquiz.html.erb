@@ -22,7 +22,7 @@ Please select an answer for all questions before submitting the quiz.
 document.getElementById('submit-button').addEventListener('click', function(event) {
 const selectedAnswers = document.querySelectorAll('input[type="radio"]:checked');
 const totalQuestions = <%= @lecture.quiz.questions.count %>;
- 
+
 if (selectedAnswers.length < totalQuestions) {
 event.preventDefault(); // Prevent form submission
 document.getElementById('error-message').style.display = 'block'; }
