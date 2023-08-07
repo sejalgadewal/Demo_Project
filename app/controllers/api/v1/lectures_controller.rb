@@ -41,6 +41,12 @@ class Api::V1::LecturesController < ApplicationController
     render json: { message: 'Lecture was successfully destroyed.' }
   end
 
+  def mylecture
+    @lectures= @course.lectures
+    render json: {lectures: @lectures}
+  end
+
+
   private
 
   def lecture_params

@@ -28,7 +28,7 @@ RSpec.describe "Courses", type: :request do
       it "displays the user's course page" do
         my_course = create(:course, user: instructor)
         my_lecture = create(:lecture, course: my_course, user: instructor)
-        get mycourse_path
+        get courses_mycourse_path
         expect(response).to have_http_status(:success)
         expect(response.body).to include(my_course.title)
       end
@@ -36,7 +36,7 @@ RSpec.describe "Courses", type: :request do
 
     context "when user is not authenticated" do
       it "redirects to sign-in page" do
-        get mycourse_path
+        get courses_mycourse_path
         expect(response).to redirect_to(new_user_session_path)
       end
     end
@@ -61,6 +61,5 @@ RSpec.describe "Courses", type: :request do
       end
     end
   end
-
 
 end

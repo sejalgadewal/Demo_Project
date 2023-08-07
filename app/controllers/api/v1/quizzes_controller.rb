@@ -38,6 +38,15 @@ class Api::V1::QuizzesController < ApplicationController
     end
   end
 
+  def myquiz
+    if @lecture.quiz.present?
+      @quiz = @lecture.quiz  
+      render json: {quiz: @quiz}
+    else
+      render json: { message: 'No any quiz created....please create any quiz .' }
+    end
+  end
+
   private
 
   def quiz_params
