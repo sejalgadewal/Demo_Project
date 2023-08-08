@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
-
+  # protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  
   before_action :authenticate_user!, except:[:index]
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -17,5 +19,11 @@ class ApplicationController < ActionController::Base
          courses_path
       end
     end
+  end
+
+  protected
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name avatar])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[name avatar])
   end
 end

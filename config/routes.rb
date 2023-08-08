@@ -23,7 +23,24 @@ Rails.application.routes.draw do
       resources :questions, only: [:new, :index, :create,:show,:edit,:update,:destroy]
   end
 
-  devise_for :users, :controllers => {registrations: 'registrations'}
+      # devise_for :users, :controllers => {registrations: 'registrations'}
+    # resources :users, :controllers => {registrations: 'registrations'}
+
+    #devise_for :users, :controllers => {registrations: 'registrations'}, path: 'users'
+
+    devise_for :users, path: '', path_names: {
+      sign_in: 'login',
+      sign_out: 'logout',
+      registration: 'signup',
+      confirmation: 'confirm'
+
+    },
+    controllers: {
+      sessions: 'users/sessions',
+      registrations: 'users/registrations',
+      confirmation: 'user/confirmations'
+
+    }
 
   namespace :api do
     namespace :v1 do

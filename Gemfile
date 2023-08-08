@@ -10,6 +10,10 @@ gem "rails", "~> 7.0.6"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 gem 'devise'
+gem 'devise-jwt'
+gem 'rack-cors'
+gem 'jsonapi-serializer'
+
 gem 'simple_form'
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"

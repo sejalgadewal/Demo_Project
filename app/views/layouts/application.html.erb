@@ -23,7 +23,9 @@
 </head>
 
 <body>
-  <% if flash[:notice] %>
+  <%
+=begin%>
+ <% if flash[:notice] %>
       <div class="notification is-primary global-notification">
           <p class="notice"><%= notice%></p>
       </div>
@@ -33,7 +35,9 @@
       <div class="notification is-danger global-notification">
           <p class="alert"><%= alert %></p>
       </div>
-  <%end%>
+  <%end%> 
+<%
+=end%>
 
   <nav class="navbar is-info">
       <div class="navbar-brand">

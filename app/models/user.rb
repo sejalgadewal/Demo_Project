@@ -1,8 +1,11 @@
 class User < ApplicationRecord
+  include Devise::JWT::RevocationStrategies::JTIMatcher
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
-    :recoverable, :rememberable, :validatable
+    :recoverable, :rememberable, :validatable, :jwt_authenticatable, jwt_revocation_strategy: self
+
 
   enum role: {Instructor: 0, Student: 1}
 
@@ -30,6 +33,10 @@ class User < ApplicationRecord
   def mark_quiz_attempted(quiz)
     attempted_quizzes << quiz.id
     save
+  end
+
+  def jwt_payload
+    super
   end
 end
 
