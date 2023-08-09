@@ -1,11 +1,13 @@
 class Api::V1::CoursesController < ApplicationController
-      before_action :set_course, only: [:show, :create]
-      before_action :authenticate_user!, except: [:index]
+      before_action :set_course, only: [:show]
+      before_action :authenticate_user!
 
       def index
         courses = Course.all
         @user=User.where(role: "Instructor")
-        render json: { user: @user, courses: courses }, status: :ok
+        # render json: { user: @user, courses: courses }, status: :ok
+        render json: {courses: courses }, status: :ok
+        
       end
 
 
@@ -15,6 +17,7 @@ class Api::V1::CoursesController < ApplicationController
       end
 
       def create
+        # byebug
         @course = current_user.courses.build(course_params)
         authorize! :manage, @course
 
@@ -58,7 +61,7 @@ class Api::V1::CoursesController < ApplicationController
       private
 
       def course_params
-        params.require(:course).permit(:title, :description, documents: [])
+        params.require(:course).permit(:title, :description, :documents)
       end
 
       def set_course

@@ -13,7 +13,8 @@ class Api::V1::LecturesController < ApplicationController
     @lecture.user = current_user
 
     if @lecture.save
-      render json: { message: 'Lecture was successfully created.' }
+      # render json: { message: 'Lecture was successfully created.' }
+      render json: @lecture, status: :created
     else
       render json: { errors: @lecture.errors.full_messages }, status: :unprocessable_entity
     end

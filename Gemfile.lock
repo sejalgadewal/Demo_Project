@@ -353,6 +353,7 @@ PLATFORMS
 
 DEPENDENCIES
   activestorage
+  bcrypt
   bootsnap
   bulma-rails (~> 0.9.4)
   byebug

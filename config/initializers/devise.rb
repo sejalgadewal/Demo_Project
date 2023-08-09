@@ -35,7 +35,7 @@ Devise.setup do |config|
      jwt.revocation_requests = [
        ['DELETE', %r{^/users/sign_out}]
      ]
-     jwt.expiration_time = 120.minutes.to_i
+     jwt.expiration_time = 60.minutes.to_i
   end
   config.navigational_formats = []
   # Configure the class responsible to send e-mails.
@@ -279,6 +279,10 @@ Devise.setup do |config|
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
+  def after_sign_out_path_for(resource_or_scope)
+    courses_path
+  end
+
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
